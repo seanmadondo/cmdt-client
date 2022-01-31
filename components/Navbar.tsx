@@ -5,6 +5,9 @@ export const Navbar = () => {
   return (
     <nav>
       <Link href="/">
+        <a>Home</a>
+      </Link>
+      <Link href="/overview">
         <a>Overview</a>
       </Link>
       <Link href="/fingerprint">

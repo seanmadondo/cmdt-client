@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
 
-import styles from "../styles/Home.module.css";
-
 const Grants: NextPage = () => {
-  return <div className={styles.container}>Grants</div>;
+  return <div>Grants</div>;
 };
 
 export default Grants;

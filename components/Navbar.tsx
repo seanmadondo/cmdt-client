@@ -1,24 +1,41 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
+import React, { ReactNode } from "react";
 import { css } from "@emotion/react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   AppBar,
   Box,
-  Button,
   Container,
-  Menu,
-  MenuItem,
   Toolbar,
   Typography,
+  Tabs,
+  Tab,
+  IconButton,
+  MenuItem,
+  Menu,
 } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-//const cmdt_logo = require("../assets/cmdt_logo");
+const settings = ["Profile", "Account", "About", "Logout"];
 
 export const Navbar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+  const [value, setValue] = React.useState(0);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   return (
     <AppBar position="sticky" color="transparent">
@@ -31,13 +48,15 @@ export const Navbar = () => {
             justifyContent: "space-between",
           }}
         >
-          <img
-            css={css({
+          <Image
+            css={{
               paddingLeft: "15px",
               width: "150px",
               height: "80",
-            })}
-            src={"../public/cmdt_logo.png"}
+            }}
+            width={100}
+            height={50}
+            src={"/../public/cmdt_logo.png"}
             alt="CDMT"
           />
 
@@ -48,48 +67,53 @@ export const Navbar = () => {
               justifyContent: "space-between",
             }}
           >
-            <Typography textAlign="center">
-              <Link href="/">Home</Link>
-            </Typography>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              css={{
+                "& .MuiTabs-indicator": { backgroundColor: "#41255D" },
+                "& .Mui-selected": {
+                  color: "#242424 !important",
+                  fontWeight: "bold",
+                },
+              }}
+            >
+              <Tab label={<Link href="/overview">Overview</Link>} />
+              <Tab label={<Link href="/fingerprint">Fingerprint</Link>} />
+              <Tab label={<Link href="/network">Network</Link>} />
+              <Tab label={<Link href="/grants">Grants</Link>} />
+            </Tabs>
 
-            <Typography textAlign="center">
-              <Link href="/overview">Overview</Link>
-            </Typography>
-
-            <Typography textAlign="center">
-              <Link href="/fingerprint">Fingerprint</Link>
-            </Typography>
-            <Typography textAlign="center">
-              <Link href="/network">Network</Link>
-            </Typography>
-            <Typography textAlign="center">
-              <Link href="/grants">Grants</Link>
-            </Typography>
+            <div>
+              <IconButton onClick={handleOpenUserMenu}>
+                <AccountCircleIcon />
+              </IconButton>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </div>
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
 };
-
-// export const Navbar = () => {
-//   return (
-//     <nav>
-//       <Link href="/">
-//         <a>Home</a>
-//       </Link>
-//       <Link href="/overview">
-//         <a>Overview</a>
-//       </Link>
-//       <Link href="/fingerprint">
-//         <a>Fingerprint</a>
-//       </Link>
-//       <Link href="/network">
-//         <a>Network</a>
-//       </Link>
-//       <Link href="/grants">
-//         <a>Grants</a>
-//       </Link>
-//     </nav>
-//   );
-// };

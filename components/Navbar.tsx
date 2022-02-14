@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-const settings = ["Profile", "Account", "About", "Logout"];
+const settings = ["Account", "About", "Logout"];
 
 export const Navbar = () => {
   const [value, setValue] = React.useState(0);
@@ -48,23 +48,26 @@ export const Navbar = () => {
             justifyContent: "space-between",
           }}
         >
-          <Image
-            css={{
-              paddingLeft: "15px",
-              width: "150px",
-              height: "80",
-            }}
-            width={100}
-            height={50}
-            src={"/../public/cmdt_logo.png"}
-            alt="CDMT"
-          />
+          <Link href="/overview">
+            <Image
+              css={{
+                paddingLeft: "15px",
+                width: "150px",
+                height: "80",
+              }}
+              width={100}
+              height={50}
+              src={"/../public/cmdt_logo.png"}
+              alt="CDMT"
+            />
+          </Link>
 
           <Box
             css={{
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             <Tabs

@@ -1,6 +1,8 @@
 import React, { ReactNode } from "react";
 import Head from "next/head";
 import { Navbar } from "./Navbar";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../styles/theme";
 
 interface LayoutProps {
   children: ReactNode;
@@ -8,7 +10,7 @@ interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <Head>
         <title>CMDT</title>
         <meta name="description" content="CMDT" />
@@ -16,6 +18,6 @@ export const Layout = ({ children }: LayoutProps) => {
       </Head>
       <Navbar />
       {children}
-    </div>
+    </ThemeProvider>
   );
 };

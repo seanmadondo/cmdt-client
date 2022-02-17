@@ -3,6 +3,7 @@ import Head from "next/head";
 import { Navbar } from "./Navbar";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../styles/theme";
+import { Container } from "@mui/material";
 
 interface LayoutProps {
   children: ReactNode;
@@ -17,7 +18,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      {children}
+      <Container maxWidth={"lg"}>{children}</Container>
     </ThemeProvider>
   );
 };

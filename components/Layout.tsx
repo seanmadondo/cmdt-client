@@ -6,7 +6,7 @@ import theme from "../styles/theme";
 import { Container } from "@mui/material";
 
 interface LayoutProps {
-  children: ReactNode;
+  children: ReactNode; //The Website Pages
 }
 
 export const Layout = ({ children }: LayoutProps) => {

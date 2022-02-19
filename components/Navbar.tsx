@@ -48,19 +48,12 @@ export const Navbar = () => {
             justifyContent: "space-between",
           }}
         >
-          <Link href="/overview">
-            <Image
-              css={{
-                paddingLeft: "15px",
-                width: "150px",
-                height: "80",
-              }}
-              width={100}
-              height={50}
-              src={"/../public/cmdt_logo.png"}
-              alt="CDMT"
-            />
-          </Link>
+          <Image
+            width={100}
+            height={50}
+            src={"/../public/cmdt_logo.png"}
+            alt="CDMT"
+          />
 
           <Box
             css={{

@@ -2,16 +2,18 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
 import type { NextPage } from "next";
 import { BarGraph } from "../charts/BarGraph";
-import { Toolbar } from "../components/Toolbar";
+import { PageToolbar } from "../components/PageToolbar";
 import { PieChart } from "../charts/PieChart";
 
 const Overview: NextPage = () => {
   return (
     <div>
-      <Toolbar>
+      <PageToolbar>
         <Typography>Total Publications</Typography>
-      </Toolbar>
-      <Box css={{ display: "flex", flexDirection: "row" }}>
+      </PageToolbar>
+      <Box
+        css={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+      >
         <Paper elevation={8} css={{ borderRadius: 10 }}>
           <PieChart />
         </Paper>
@@ -20,6 +22,9 @@ const Overview: NextPage = () => {
           <BarGraph />
         </Paper>
       </Box>
+      <PageToolbar>
+        <Typography>Total Publications By Category</Typography>
+      </PageToolbar>
     </div>
   );
 };

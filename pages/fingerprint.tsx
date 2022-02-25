@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Box, Paper, Typography } from "@mui/material";
 import type { NextPage } from "next";
-import { BarGraph } from "../charts/BarGraph";
+import { BarGraph } from "../data-components/overview/charts/BarGraph";
 import { PageToolbar } from "../components/PageToolbar";
 
 const Fingerprint: NextPage = () => {

@@ -1,7 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { ReactNode } from "react";
-import { css } from "@emotion/react";
-import Link from "next/link";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import {
   AppBar,
@@ -16,6 +14,7 @@ import {
   Menu,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useRouter } from "next/router";
 
 const settings = ["Account", "About", "Logout"];
 
@@ -24,6 +23,12 @@ export const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
+
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/");
+  }, []);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -53,6 +58,10 @@ export const Navbar = () => {
             height={50}
             src={"/../public/cmdt_logo.png"}
             alt="CDMT"
+            onClick={() => {
+              router.push("/");
+              setValue(0);
+            }}
           />
 
           <Box
@@ -74,18 +83,28 @@ export const Navbar = () => {
                 },
               }}
             >
-              <Tab label={<Link href="/overview">Overview</Link>} />
-              <Tab label={<Link href="/fingerprint">Fingerprint</Link>} />
-              <Tab label={<Link href="/network">Network</Link>} />
-              <Tab label={<Link href="/grants">Grants</Link>} />
+              <Tab label={"Home"} onClick={() => router.push("/")} />
+              <Tab
+                label={"Overview"}
+                onClick={() => router.push("/overview")}
+              />
+              <Tab
+                label={"Fingerprint"}
+                onClick={() => router.push("/fingerprint")}
+              />
+              <Tab label={"Network"} onClick={() => router.push("/network")} />
+              <Tab label={"Grants"} onClick={() => router.push("/grants")} />
             </Tabs>
 
             <div>
-              <IconButton onClick={handleOpenUserMenu}>
-                <AccountCircleIcon />
+              <IconButton
+                onClick={handleOpenUserMenu}
+                css={{ marginLeft: "20px" }}
+              >
+                <AccountCircleIcon fontSize="large" />
               </IconButton>
               <Menu
-                sx={{ mt: "45px" }}
+                css={{ marginTop: "45px" }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{

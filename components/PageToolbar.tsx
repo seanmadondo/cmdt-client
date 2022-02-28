@@ -9,8 +9,22 @@ interface PageToolbarProps {
 export const PageToolbar = ({ children }: PageToolbarProps) => {
   return (
     <>
-      <Box css={{ paddingTop: "20px", height: "60px" }}>
-        <Container maxWidth={"lg"}>{children}</Container>
+      <Box
+        css={{
+          paddingTop: "20px",
+          height: "60px",
+        }}
+      >
+        <Container
+          maxWidth={"lg"}
+          css={{
+            display: "flex",
+            flexDirection: "row",
+            alignContent: "center",
+          }}
+        >
+          {children}
+        </Container>
       </Box>
       <Divider variant="fullWidth" css={{ marginBottom: "20px" }} />
     </>

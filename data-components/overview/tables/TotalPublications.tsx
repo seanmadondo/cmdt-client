@@ -25,7 +25,7 @@ const rows = [
   createTotalPublicationData("AUT", 11777),
   createTotalPublicationData("LU", 7218),
   createTotalPublicationData("CDHB", 6905),
-  createTotalPublicationData("UoW", 15716),
+  createTotalPublicationData("UoC", 15716),
   createTotalPublicationData("CI", 2941),
 ];
 

@@ -5,6 +5,7 @@ import { BarGraph } from "../data-components/overview/charts/BarGraph";
 import { PageToolbar } from "../components/PageToolbar";
 import { PieChart } from "../data-components/overview/charts/PieChart";
 import TotalPublications from "../data-components/overview/tables/TotalPublications";
+import { CategorySelect } from "../data-components/overview/CategorySelect";
 
 const Overview: NextPage = () => {
   return (
@@ -22,7 +23,7 @@ const Overview: NextPage = () => {
           <TotalPublications />
         </Paper>
         <Paper
-          elevation={3}
+          elevation={0}
           css={{
             alignContent: "center",
             borderRadius: 10,
@@ -34,7 +35,7 @@ const Overview: NextPage = () => {
         </Paper>
         <Divider orientation="vertical" />
         <Paper
-          elevation={3}
+          elevation={0}
           css={{ borderRadius: 10, width: "50%", marginLeft: "5%" }}
         >
           <BarGraph />
@@ -43,12 +44,13 @@ const Overview: NextPage = () => {
       <div css={{ marginTop: 10 }}>
         <PageToolbar>
           <Typography>By Category</Typography>
+          {/* <CategorySelect /> */}
         </PageToolbar>
         <Box
           css={{ display: "flex", flexDirection: "row", alignItems: "center" }}
         >
           <Paper
-            elevation={5}
+            elevation={0}
             css={{ alignContent: "center", borderRadius: 10, width: "30%" }}
           >
             <PieChart />

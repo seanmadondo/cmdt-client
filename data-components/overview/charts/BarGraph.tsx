@@ -13,7 +13,18 @@ const options = {
     text: "",
   },
   xAxis: {
-    categories: ["UoA", "MU", "UoC", "VUW", "UoW"],
+    categories: [
+      "UoA",
+      "MU",
+      "UoC",
+      "VUW",
+      "UoW",
+      "AUT",
+      "LU",
+      "CDHB",
+      "CI",
+      "ABI",
+    ],
     title: {
       text: "Orgnisations",
     },
@@ -54,20 +65,7 @@ const options = {
   },
   series: [
     {
-      name: "UoA",
-      data: [107],
-    },
-    {
-      name: "MU",
-      data: [133],
-    },
-    {
-      name: "UoC",
-      data: [814],
-    },
-    {
-      name: "Year 2016",
-      data: [1216],
+      data: [87260, 33558, 31468, 27976, 15716, 11777, 7218, 6905, 2941, 1000],
     },
   ],
 };

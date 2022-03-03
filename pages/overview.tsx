@@ -6,6 +6,7 @@ import { PageToolbar } from "../components/PageToolbar";
 import { PieChart } from "../data-components/overview/charts/PieChart";
 import TotalPublications from "../data-components/overview/tables/TotalPublications";
 import { CategorySelect } from "../data-components/overview/CategorySelect";
+import TotalByCategory from "../data-components/overview/tables/TotalByCategory";
 
 const Overview: NextPage = () => {
   return (
@@ -51,7 +52,18 @@ const Overview: NextPage = () => {
         >
           <Paper
             elevation={0}
-            css={{ alignContent: "center", borderRadius: 10, width: "30%" }}
+            css={{ alignContent: "center", borderRadius: 10, width: "60%" }}
+          >
+            <TotalByCategory />
+          </Paper>
+          <Paper
+            elevation={0}
+            css={{
+              alignContent: "center",
+              borderRadius: 10,
+              width: "30%",
+              marginLeft: "5%",
+            }}
           >
             <PieChart />
           </Paper>

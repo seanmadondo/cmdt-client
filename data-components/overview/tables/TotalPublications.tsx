@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { Celebration } from "@mui/icons-material";
 import {
   Paper,
   Table,

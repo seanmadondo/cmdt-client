@@ -4,6 +4,7 @@ import { Navbar } from "./Navbar";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../styles/theme";
 import { Container } from "@mui/material";
+import { Footer } from "./Footer";
 
 interface LayoutProps {
   children: ReactNode; //The Website Pages
@@ -19,6 +20,7 @@ export const Layout = ({ children }: LayoutProps) => {
       </Head>
       <Navbar />
       <Container maxWidth={"lg"}>{children}</Container>
+      <Footer />
     </ThemeProvider>
   );
 };

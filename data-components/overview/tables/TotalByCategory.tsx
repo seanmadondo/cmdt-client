@@ -53,7 +53,7 @@ export default function TotalByCategory() {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.category}>
+            <TableRow key={row.university}>
               <TableCell component="th" scope="row">
                 {row.category}
               </TableCell>

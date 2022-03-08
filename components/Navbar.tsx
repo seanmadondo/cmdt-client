@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useRouter } from "next/router";
+import * as cmdt_logo from "../public/cmdt_logo.png";
 
 const settings = ["Account", "About", "Logout"];
 
@@ -56,8 +57,9 @@ export const Navbar = () => {
           <Image
             width={100}
             height={50}
-            src={"/../public/cmdt_logo.png"}
+            src={cmdt_logo}
             alt="CDMT"
+            layout="intrinsic"
             onClick={() => {
               router.push("/");
               setValue(0);

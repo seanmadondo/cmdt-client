@@ -5,6 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "../styles/theme";
 import { Container } from "@mui/material";
 import { Footer } from "./Footer";
+import { LandingPage } from "./LandingPage";
 
 interface LayoutProps {
   children: ReactNode; //The Website Pages
@@ -18,6 +19,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <meta name="description" content="CMDT" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {/* <LandingPage /> */}
       <Navbar />
       <Container maxWidth={"lg"}>{children}</Container>
       <Footer />

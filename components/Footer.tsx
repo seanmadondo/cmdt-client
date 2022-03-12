@@ -8,8 +8,9 @@ export const Footer = () => {
       position="static"
       css={{
         backgroundColor: "white",
-        marginTop: "calc(5% + 60px)",
+        marginTop: "calc(20% + 60px)",
         bottom: 0,
+        height: "100px",
       }}
     >
       <Container maxWidth="xl">

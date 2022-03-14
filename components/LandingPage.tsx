@@ -2,90 +2,127 @@
 import Image from "next/image";
 import * as cmdt_logo from "../public/cmdt_logo.png";
 import { useRouter } from "next/router";
-import { Box, Button, Container, Tab, Tabs, Toolbar } from "@mui/material";
-import React, { useState } from "react";
+import { Button, Container, Toolbar, Typography } from "@mui/material";
+import React from "react";
+import Link from "next/link";
 
 export const LandingPage = () => {
-  const [value, setValue] = useState(0);
-
   const router = useRouter();
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-
   return (
-    <Box
+    <div
       css={{
         backgroundImage: "linear-gradient( #E4C7FB, white)",
-        height: 100,
+        height: "400px",
       }}
     >
-      <Container maxWidth="xl">
-        <Toolbar
-          disableGutters
-          css={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-evenly",
-          }}
-        >
-          <div css={{ marginTop: "25px", paddingLeft: "15px" }}>
-            <Image
-              css={{ marginTop: "25px" }}
-              width={100}
-              height={50}
-              src={cmdt_logo}
-              alt="CDMT"
-              layout="intrinsic"
-              onClick={() => {
-                router.push("/");
-              }}
-            />
-          </div>
-          <Box
+      <Container maxWidth={"xl"}>
+        <header>
+          <Toolbar
+            disableGutters
             css={{
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-between",
-              alignContent: "center",
               alignItems: "center",
+              justifyContent: "space-around",
             }}
           >
-            <Tabs
-              value={value}
-              onChange={handleChange}
+            <div css={{ marginTop: "25px", paddingLeft: "15px" }}>
+              <Image
+                width={150}
+                height={70}
+                src={cmdt_logo}
+                alt="CDMT"
+                layout="intrinsic"
+                onClick={() => {
+                  router.push("/");
+                }}
+              />
+            </div>
+
+            <div
               css={{
-                "& .MuiTabs-indicator": { backgroundColor: "#41255D" },
-                "& .Mui-selected": {
-                  color: "#242424 !important",
-                  fontWeight: "bold",
-                },
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
               }}
             >
-              <Tab label={"Welcome"} onClick={() => router.push("/")} />
-              <Tab label={"About"} onClick={() => router.push("/about")} />
-              <Tab label={"Log In"} onClick={() => router.push("/")} />
-            </Tabs>
-          </Box>
-          <div css={{ position: "relative" }}>
+              <Button
+                css={{
+                  color: "#41255D",
+                  "&:hover": {
+                    color: "#EC1C78",
+                    transition: "all .1s ease-in-out",
+                    transform: "scale(1.1)",
+                    backgroundColor: "transparent",
+                  },
+                }}
+              >
+                <Link href="/about">
+                  <Typography>About</Typography>
+                </Link>
+              </Button>
+              <Button
+                css={{
+                  color: "#41255D",
+                  "&:hover": {
+                    color: "#EC1C78",
+                    transition: "all .1s ease-in-out",
+                    transform: "scale(1.1)",
+                    backgroundColor: "transparent",
+                  },
+                }}
+              >
+                <Link href="/">
+                  <Typography>Log In</Typography>
+                </Link>
+              </Button>
+              <Button
+                css={{
+                  backgroundColor: "#EC1C78",
+                  marginLeft: "10px",
+                  color: "white",
+                  boxShadow: "0px 10px 15px rgba(0, 0, 0, 0.15)",
+                  "&:hover": {
+                    backgroundColor: "#EC1C78",
+                    transition: "all .1s ease-in-out",
+                    transform: "scale(1.1)",
+                  },
+                }}
+              >
+                <Typography>Sign Up</Typography>
+              </Button>
+            </div>
+          </Toolbar>
+        </header>
+        <div css={{ paddingTop: "10%" }}>
+          <div css={{ display: "flex", flexDirection: "column" }}>
+            <Typography variant="h3" css={{ color: "#41255D" }}>
+              Providing
+            </Typography>
+            <Typography variant="body1">
+              Easy access to research providers in Aotearoa NZ as a one-stop
+              portal
+            </Typography>
             <Button
               css={{
-                backgroundColor: "#EC1C78",
+                backgroundColor: "#41255D",
                 marginLeft: "10px",
                 color: "white",
+                maxWidth: "100px",
+                boxShadow: "0px 10px 15px rgba(0, 0, 0, 0.15)",
                 "&:hover": {
-                  color: "#EC1C78",
-                  border: " 2px solid #EC1C78",
+                  backgroundColor: "#41255D",
+                  transition: "all .1s ease-in-out",
+                  transform: "scale(1.1)",
                 },
               }}
             >
-              Create An Account
+              <Typography>Learn More</Typography>
             </Button>
           </div>
-        </Toolbar>
+        </div>
       </Container>
-    </Box>
+    </div>
   );
 };

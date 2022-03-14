@@ -19,10 +19,10 @@ export const Layout = ({ children }: LayoutProps) => {
         <meta name="description" content="CMDT" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <LandingPage /> */}
-      <Navbar />
+      <LandingPage />
+      {/* <Navbar />
       <Container maxWidth={"lg"}>{children}</Container>
-      <Footer />
+      <Footer /> */}
     </ThemeProvider>
   );
 };

@@ -189,6 +189,7 @@ export const LandingPage = () => {
                 height={300}
                 src={p1}
                 alt="p1"
+                priority
                 layout="intrinsic"
                 css={{
                   "&:hover": {

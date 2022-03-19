@@ -67,7 +67,11 @@ export const LandingPage = () => {
                   },
                 }}
               >
-                <a href="https://www.cmdt.org.nz/cmdt" target="_blank">
+                <a
+                  href="https://www.cmdt.org.nz/cmdt"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <Typography>About</Typography>
                 </a>
               </Button>
@@ -175,7 +179,11 @@ export const LandingPage = () => {
             >
               <Typography>
                 {" "}
-                <a href="https://www.cmdt.org.nz/cmdt" target="_blank">
+                <a
+                  href="https://www.cmdt.org.nz/cmdt"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   {" "}
                   Learn More
                 </a>

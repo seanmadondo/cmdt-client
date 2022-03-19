@@ -5,7 +5,6 @@ import { BarGraph } from "../data-components/overview/charts/BarGraph";
 import { PageToolbar } from "../components/PageToolbar";
 import { PieChart } from "../data-components/overview/charts/PieChart";
 import TotalPublications from "../data-components/overview/tables/TotalPublications";
-import { CategorySelect } from "../data-components/overview/CategorySelect";
 import TotalByCategory from "../data-components/overview/tables/TotalByCategory";
 
 const Overview: NextPage = () => {

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Head from "next/head";
 import { Navbar } from "./Navbar";
 import { ThemeProvider } from "@mui/material/styles";
@@ -12,6 +12,13 @@ interface LayoutProps {
 }
 
 export const Layout = ({ children }: LayoutProps) => {
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Client-side-only code
+    window.localStorage.getItem("cmdt") && setUserLoggedIn(true);
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <Head>
@@ -19,10 +26,15 @@ export const Layout = ({ children }: LayoutProps) => {
         <meta name="description" content="CMDT" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <LandingPage />
-      {/* <Navbar />
-      <Container maxWidth={"lg"}>{children}</Container>
-      <Footer /> */}
+      {!userLoggedIn ? (
+        <LandingPage />
+      ) : (
+        <>
+          <Navbar />
+          <Container maxWidth={"lg"}>{children}</Container>
+          <Footer />
+        </>
+      )}
     </ThemeProvider>
   );
 };

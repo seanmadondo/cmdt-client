@@ -60,7 +60,6 @@ export const LandingPage = () => {
                 css={{
                   color: "#41255D",
                   "&:hover": {
-                    color: "#EC1C78",
                     transition: "all .1s ease-in-out",
                     transform: "scale(1.1)",
                     backgroundColor: "transparent",
@@ -79,17 +78,16 @@ export const LandingPage = () => {
                 css={{
                   color: "#41255D",
                   "&:hover": {
-                    color: "#EC1C78",
                     transition: "all .1s ease-in-out",
                     transform: "scale(1.1)",
                     backgroundColor: "transparent",
                   },
                 }}
-                onClick={login}
+                //onClick={login}
               >
-                <Link href="/">
+                <a href="/api/auth/login">
                   <Typography>Log In</Typography>
-                </Link>
+                </a>
               </Button>
               <Button
                 css={{

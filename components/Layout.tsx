@@ -13,7 +13,6 @@ interface LayoutProps {
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-  //const [userLoggedIn, setUserLoggedIn] = useState(false);
   const { user, error, isLoading } = useUser();
 
   if (isLoading) {
@@ -21,11 +20,6 @@ export const Layout = ({ children }: LayoutProps) => {
   }
 
   if (error) return <div>{error.message}</div>;
-
-  // useEffect(() => {
-  //   // Client-side-only code
-  //   window.localStorage.getItem("cmdt") && setUserLoggedIn(true);
-  // }, []);
 
   return (
     <ThemeProvider theme={theme}>

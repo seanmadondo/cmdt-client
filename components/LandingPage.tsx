@@ -1,10 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Image from "next/image";
 import * as cmdt_logo from "../public/cmdt_logo.png";
-import * as p1 from "../assets/2.png";
-import * as p2 from "../assets/3.png";
-import * as p3 from "../assets/4.png";
-import * as p4 from "../assets/5.png";
+import * as cmdt_landing from "../assets/cmdt-landing.png";
 import { useRouter } from "next/router";
 import { Button, Container, Toolbar, Typography } from "@mui/material";
 import React from "react";
@@ -12,11 +9,6 @@ import Link from "next/link";
 
 export const LandingPage = () => {
   const router = useRouter();
-
-  function login() {
-    window.localStorage.setItem("cmdt", "userLoggedIn");
-    router.reload();
-  }
 
   return (
     <div
@@ -83,11 +75,10 @@ export const LandingPage = () => {
                     backgroundColor: "transparent",
                   },
                 }}
-                //onClick={login}
               >
-                <a href="/api/auth/login">
+                <Link href="/api/auth/login">
                   <Typography>Log In</Typography>
-                </a>
+                </Link>
               </Button>
               <Button
                 css={{
@@ -191,59 +182,12 @@ export const LandingPage = () => {
           <div css={{ marginLeft: "6%" }}>
             <div>
               <Image
-                width={300}
-                height={300}
-                src={p1}
+                width={750}
+                height={530}
+                src={cmdt_landing}
                 alt="p1"
                 priority
                 layout="intrinsic"
-                css={{
-                  "&:hover": {
-                    transition: "all .5s ease-in-out",
-                    transform: "scale(1.05)",
-                  },
-                }}
-              />
-              <Image
-                width={300}
-                height={300}
-                src={p2}
-                alt="p1"
-                layout="intrinsic"
-                css={{
-                  "&:hover": {
-                    transition: "all .5s ease-in-out",
-                    transform: "scale(1.05)",
-                  },
-                }}
-              />
-            </div>
-            <div>
-              <Image
-                width={300}
-                height={300}
-                src={p3}
-                alt="p1"
-                layout="intrinsic"
-                css={{
-                  "&:hover": {
-                    transition: "all .5s ease-in-out",
-                    transform: "scale(1.05)",
-                  },
-                }}
-              />
-              <Image
-                width={300}
-                height={300}
-                src={p4}
-                alt="p1"
-                layout="intrinsic"
-                css={{
-                  "&:hover": {
-                    transition: "all .5s ease-in-out",
-                    transform: "scale(1.05)",
-                  },
-                }}
               />
             </div>
           </div>

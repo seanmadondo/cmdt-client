@@ -16,6 +16,7 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useRouter } from "next/router";
 import * as cmdt_logo from "../public/cmdt_logo.png";
+import Link from "next/link";
 
 const settings = ["Account", "About", "Logout"];
 
@@ -121,11 +122,16 @@ export const Navbar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
+                {/* {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
-                ))}
+                ))} */}
+                <MenuItem>
+                  <Link href="/api/auth/logout">
+                    <Typography textAlign="center">Logout</Typography>
+                  </Link>
+                </MenuItem>
               </Menu>
             </div>
           </Box>

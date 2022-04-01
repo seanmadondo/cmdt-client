@@ -6,18 +6,20 @@ import theme from "../styles/theme";
 import { Container } from "@mui/material";
 import { Footer } from "./Footer";
 import { LandingPage } from "./LandingPage";
+import { useUser } from "@auth0/nextjs-auth0";
 
 interface LayoutProps {
   children: ReactNode; //The Website Pages
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const { user, error, isLoading } = useUser();
 
-  useEffect(() => {
-    // Client-side-only code
-    window.localStorage.getItem("cmdt") && setUserLoggedIn(true);
-  }, []);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) return <div>{error.message}</div>;
 
   return (
     <ThemeProvider theme={theme}>
@@ -26,7 +28,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <meta name="description" content="CMDT" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {!userLoggedIn ? (
+      {!user ? (
         <LandingPage />
       ) : (
         <>

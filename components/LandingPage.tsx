@@ -4,11 +4,63 @@ import * as cmdt_logo from "../public/cmdt_logo.png";
 import * as cmdt_landing from "../assets/cmdt-landing.png";
 import { useRouter } from "next/router";
 import { Button, Container, Toolbar, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import { Dialog } from "./Dialog";
+
+interface RegisterDialogProps {
+  open: boolean;
+  handleClose: () => void;
+}
+
+const RegisterDialog = ({ open, handleClose }: RegisterDialogProps) => {
+  const header = "Register to access NZ Innovation";
+  const content = (
+    <>
+      <p> Registration Process Here</p>
+    </>
+  );
+
+  const footer = (
+    <Button
+      css={{
+        backgroundColor: "#EC1C78",
+        marginLeft: "10px",
+        color: "white",
+        boxShadow: "0px 10px 15px rgba(0, 0, 0, 0.15)",
+        "&:hover": {
+          backgroundColor: "#EC1C78",
+          transition: "all .1s ease-in-out",
+          transform: "scale(1.1)",
+        },
+      }}
+    >
+      <Typography css={{ minWidth: "100px" }}>Register</Typography>
+    </Button>
+  );
+
+  return (
+    <Dialog
+      header={header}
+      content={content}
+      footer={footer}
+      open={open}
+      onClose={handleClose}
+    />
+  );
+};
 
 export const LandingPage = () => {
   const router = useRouter();
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleClickOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
 
   return (
     <div
@@ -80,6 +132,10 @@ export const LandingPage = () => {
                   <Typography>Log In</Typography>
                 </Link>
               </Button>
+              <RegisterDialog
+                open={openDialog}
+                handleClose={handleCloseDialog}
+              />
               <Button
                 css={{
                   backgroundColor: "#EC1C78",
@@ -92,8 +148,9 @@ export const LandingPage = () => {
                     transform: "scale(1.1)",
                   },
                 }}
+                onClick={handleClickOpenDialog}
               >
-                <Typography css={{ minWidth: "100px" }}>Sign Up</Typography>
+                <Typography css={{ minWidth: "100px" }}>Register</Typography>
               </Button>
             </div>
           </Toolbar>

@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Box, Paper, Typography } from "@mui/material";
 import type { NextPage } from "next";
-import { BarGraph } from "./../data-components/fingerprint/BarGraph";
 import { PageToolbar } from "../components/PageToolbar";
 import ResearchAreasTable from "../data-components/fingerprint/ResearchAreasTable";
+import { ResearchAreasBarChart } from "../data-components/fingerprint/ResearchAreasBar";
 
 const Fingerprint: NextPage = () => {
   return (
@@ -24,7 +24,7 @@ const Fingerprint: NextPage = () => {
           elevation={0}
           css={{ borderRadius: 10, width: "50%", marginLeft: "5%" }}
         >
-          <BarGraph />
+          <ResearchAreasBarChart />
         </Paper>
       </Box>
     </div>

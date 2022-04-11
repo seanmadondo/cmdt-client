@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useRouter } from "next/router";
-import * as cmdt_logo from "../public/cmdt_logo.png";
+import * as cmdt_logo from "../../public/cmdt_logo.png";
 import Link from "next/link";
 
 const settings = ["Account", "About", "Logout"];

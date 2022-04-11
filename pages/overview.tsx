@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { Box, Divider, Paper, Typography } from "@mui/material";
 import type { NextPage } from "next";
-import { BarGraph } from "../data-components/overview/charts/BarGraph";
+import { TotalPublicationsBarChart } from "../data-components/overview/charts/TotalPublicationsBar";
 import { PageToolbar } from "../components/PageToolbar";
-import { PieChart } from "../data-components/overview/charts/PieChart";
 import TotalPublications from "../data-components/overview/tables/TotalPublications";
 import TotalByCategory from "../data-components/overview/tables/TotalByCategory";
+import { TotalPublicationsPieChart } from "../data-components/overview/charts/TotalPublicationsPie";
 
 const Overview: NextPage = () => {
   return (
@@ -31,14 +31,14 @@ const Overview: NextPage = () => {
             marginLeft: "5%",
           }}
         >
-          <PieChart />
+          <TotalPublicationsPieChart />
         </Paper>
         <Divider orientation="vertical" />
         <Paper
           elevation={0}
           css={{ borderRadius: 10, width: "50%", marginLeft: "5%" }}
         >
-          <BarGraph />
+          <TotalPublicationsBarChart />
         </Paper>
       </Box>
       <div css={{ marginTop: 10 }}>
@@ -64,7 +64,7 @@ const Overview: NextPage = () => {
               marginLeft: "5%",
             }}
           >
-            <PieChart />
+            <TotalPublicationsPieChart />
           </Paper>
         </Box>
       </div>

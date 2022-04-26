@@ -10,25 +10,38 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React from "react";
 
-function createTotalPublicationData(source: string, count: number) {
-  return { source, count };
+interface TotalPublicationsProps {
+  data: any;
+  isLoading: boolean;
 }
 
-const rows = [
-  createTotalPublicationData("UoA", 87620),
-  createTotalPublicationData("MU", 33558),
-  createTotalPublicationData("VUW", 27976),
-  createTotalPublicationData("UoW", 15716),
-  createTotalPublicationData("AUT", 11777),
-  createTotalPublicationData("LU", 7218),
-  createTotalPublicationData("CDHB", 6905),
-  createTotalPublicationData("UoC", 15716),
-  createTotalPublicationData("CI", 2941),
-];
+interface RowDataProps {
+  source: string;
+  count: number;
+}
 
-export default function TotalPublications() {
+export const TotalPublications = ({
+  data,
+  isLoading,
+}: TotalPublicationsProps) => {
+  //present loading
+  if (isLoading) {
+    return <div>loading...</div>;
+  }
+
+  //Process & populate table data
+  const rowData: RowDataProps[] = Object.values(data.data)[0] as RowDataProps[];
+
+  //calculate total count
+  function calculateTotalCount() {
+    let totalCount: number = 0;
+    rowData.map(({ source, count }) => {
+      totalCount += count;
+    });
+    return totalCount;
+  }
+
   return (
     <TableContainer component={Paper}>
       <Table size="small">
@@ -48,7 +61,7 @@ export default function TotalPublications() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rowData.map((row: RowDataProps) => (
             <TableRow key={row.source}>
               <TableCell component="th" scope="row">
                 {row.source}
@@ -68,11 +81,11 @@ export default function TotalPublications() {
               <Typography>Total</Typography>
             </TableCell>
             <TableCell align="right">
-              <Typography>226980</Typography>
+              <Typography>{calculateTotalCount()}</Typography>
             </TableCell>
           </TableRow>
         </TableFooter>
       </Table>
     </TableContainer>
   );
-}
+};

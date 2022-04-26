@@ -1,22 +1,37 @@
 import { Chart } from "../../../components/Chart";
 
-export const TotalPublicationsBarChart = () => {
-  const categories = [
-    "UoA",
-    "MU",
-    "UoC",
-    "VUW",
-    "UoW",
-    "AUT",
-    "LU",
-    "CDHB",
-    "CI",
-    "ABI",
-  ];
+interface TotalPublicationsBarProps {
+  data: any;
+  isLoading?: boolean;
+}
+
+interface ChartDataProps {
+  source: string;
+  count: number;
+}
+
+export const TotalPublicationsBarChart = ({
+  data,
+}: TotalPublicationsBarProps) => {
+  const categories: string[] = [];
+  const seriesData: any[] = [];
+  //process received data
+  const chartData: ChartDataProps[] = Object.values(
+    data.data
+  )[0] as ChartDataProps[];
+
+  //populate barChart categories & series data
+  chartData.map(({ source, count }) => {
+    categories.push(source);
+    seriesData.push(count);
+  });
 
   const series = [
     {
-      data: [87260, 33558, 31468, 27976, 15716, 11777, 7218, 6905, 2941, 1000],
+      // dataSorting: {
+      //   enabled: true,
+      // },
+      data: seriesData,
     },
   ];
 

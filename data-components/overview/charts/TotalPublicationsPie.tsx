@@ -1,39 +1,37 @@
 import React from "react";
 import { Chart } from "../../../components/Chart";
 
-export const TotalPublicationsPieChart = () => {
+interface TotalPublicationsPieChartProps {
+  data: any;
+}
+
+interface ChartDataProps {
+  source: string;
+  count: number;
+}
+
+export const TotalPublicationsPieChart = ({
+  data,
+}: TotalPublicationsPieChartProps) => {
+  //process received data
+  const chartData: ChartDataProps[] = Object.values(
+    data.data
+  )[0] as ChartDataProps[];
+
+  //populate chart series with data
+  function generateSeriesData() {
+    const data: any[] = [];
+    chartData.map(({ source, count }) => {
+      data.push({ name: source, y: count });
+    });
+    return data;
+  }
+
   const series = [
     {
       name: "Total publications",
       colorByPoint: true,
-      data: [
-        {
-          name: "UoA",
-          y: 61.41,
-          sliced: true,
-          selected: true,
-        },
-        {
-          name: "MU",
-          y: 11.84,
-        },
-        {
-          name: "UoC",
-          y: 10.85,
-        },
-        {
-          name: "VUW",
-          y: 4.67,
-        },
-        {
-          name: "UoW",
-          y: 4.18,
-        },
-        {
-          name: "Other",
-          y: 7.05,
-        },
-      ],
+      data: generateSeriesData(),
     },
   ];
 

@@ -30,6 +30,7 @@ export const Chart = ({
   const chartOptions = {
     chart: {
       type: chartType,
+      height: "100%",
     },
     title: {
       text: chartTitle,
@@ -38,7 +39,7 @@ export const Chart = ({
       text: chartSubtitle,
     },
     tooltip: {
-      valueSuffix: toolTipValueSuffix,
+      valueSuffix: " " + toolTipValueSuffix,
     },
     xAxis: {
       categories: xAxisCategories,

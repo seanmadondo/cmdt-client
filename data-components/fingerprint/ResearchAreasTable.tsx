@@ -9,31 +9,24 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React from "react";
 
-function createResearchAreasData(
-  source: string,
-  target: string,
-  count: number
-) {
-  return { source, target, count };
+interface ResearchAreasTableProps {
+  data: any;
 }
 
-const rows = [
-  createResearchAreasData("Engineering", "ALL", 8762),
-  createResearchAreasData("Electrical", "ALL", 3355),
-  createResearchAreasData("Physiology", "ALL", 2797),
-  createResearchAreasData("Biophysics", "ALL", 1571),
-  createResearchAreasData("Mathematical", "ALL", 1177),
-  createResearchAreasData("Cardiac", "ALL", 721),
-  createResearchAreasData("NeuroSciences", "ALL", 690),
-  createResearchAreasData("Clinical", "ALL", 1571),
-  createResearchAreasData("Biomedical1", "ALL", 294),
-];
+interface RowDataProps {
+  source: string;
+  target: string;
+  category: string;
+  count: number;
+}
 
-export default function ResearchAreasTable() {
+export default function ResearchAreasTable({ data }: ResearchAreasTableProps) {
+  //Process & populate table data
+  const rowData: RowDataProps[] = Object.values(data.data)[0] as RowDataProps[];
+
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} css={{ height: "650px" }}>
       <Table size="small">
         <TableHead
           css={{
@@ -48,19 +41,27 @@ export default function ResearchAreasTable() {
             <TableCell>
               <Typography>Target</Typography>
             </TableCell>
+            <TableCell>
+              <Typography>Categories</Typography>
+            </TableCell>
+            <TableCell>
+              <Typography>Count</Typography>
+            </TableCell>
             <TableCell align="right">
-              <Typography>Total</Typography>
+              <Typography>%</Typography>
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.source}>
+          {rowData.map((row: RowDataProps, id) => (
+            <TableRow key={`${row.source}-${id}`}>
               <TableCell component="th" scope="row">
                 {row.source}
               </TableCell>
               <TableCell>{row.target}</TableCell>
-              <TableCell align="right">{row.count}</TableCell>
+              <TableCell>{row.category}</TableCell>
+              <TableCell>{row.count}</TableCell>
+              <TableCell align="right">%</TableCell>
             </TableRow>
           ))}
         </TableBody>

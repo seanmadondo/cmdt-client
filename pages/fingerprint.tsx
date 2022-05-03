@@ -6,13 +6,36 @@ import ResearchAreasTable from "../data-components/fingerprint/ResearchAreasTabl
 import { ResearchAreasBarChart } from "../data-components/fingerprint/ResearchAreasBar";
 import { Dropdown } from "../components/Dropdown";
 
-const Fingerprint: NextPage = () => {
+export async function getServerSideProps() {
+  const response = await fetch(
+    "https://nz-innovation-api.herokuapp.com/subject",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ sources: ["ABI"], targets: ["AUT"] }),
+    }
+  );
+  //Data
+  const data = await response.json();
+
+  //Pass data into page
+  return {
+    props: { data },
+    //revalidate: 1000, // In seconds
+  };
+}
+
+const Fingerprint: NextPage = (data) => {
   const someData = ["10", "20", "30"];
+
+  console.log(data);
   return (
     <div>
       <PageToolbar>
         <Typography>Research Areas</Typography>
-        <Dropdown label="Target" options={someData} placeholder="All" />
+        {/* <Dropdown label="Target" options={someData} /> */}
       </PageToolbar>
       <Box
         css={{ display: "flex", flexDirection: "row", alignItems: "center" }}
@@ -21,13 +44,13 @@ const Fingerprint: NextPage = () => {
           elevation={3}
           css={{ alignContent: "center", borderRadius: 10, width: "40%" }}
         >
-          <ResearchAreasTable />
+          <ResearchAreasTable data={data} />
         </Paper>
         <Paper
           elevation={0}
           css={{ borderRadius: 10, width: "50%", marginLeft: "5%" }}
         >
-          <ResearchAreasBarChart />
+          <ResearchAreasBarChart data={data} />
         </Paper>
       </Box>
     </div>

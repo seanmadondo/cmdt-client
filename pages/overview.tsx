@@ -10,7 +10,7 @@ import { TotalPublicationsPieChart } from "../data-components/overview/charts/To
 export async function getServerSideProps() {
   //Fetch
   const response = await fetch(
-    "https://nz-innovation-api.herokuapp.com/summary"
+    "https://nz-innovation-api.herokuapp.com/overview"
   );
   //Data
   const data = await response.json();
@@ -23,23 +23,6 @@ export async function getServerSideProps() {
 }
 
 const Overview: NextPage = (data) => {
-  // const [data, setData] = useState([]);
-  // const [isLoading, setIsloading] = useState(false);
-
-  // useEffect(() => {
-  //   setIsloading(true);
-  //   const fetchData = async () => {
-  //     const response = await fetch(
-  //       "https://nz-innovation-api.herokuapp.com/summary"
-  //     );
-  //     const data = await response.json();
-  //     setData(data);
-  //   };
-
-  //   fetchData().catch(console.error);
-  //   setIsloading(false);
-  // }, []);
-
   if (!data) {
     return (
       <div>

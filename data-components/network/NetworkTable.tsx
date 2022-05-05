@@ -5,23 +5,23 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
   TableRow,
   Typography,
 } from "@mui/material";
 
-interface ResearchAreasTableProps {
+interface NetworkTableProps {
   data: any;
 }
 
 interface RowDataProps {
   source: string;
   target: string;
-  category: string;
   count: number;
 }
 
-export default function ResearchAreasTable({ data }: ResearchAreasTableProps) {
+export const NetworkTable = ({ data }: NetworkTableProps) => {
   //Process & populate table data
   const rowData: RowDataProps[] = Object.values(data.data)[0] as RowDataProps[];
 
@@ -42,9 +42,6 @@ export default function ResearchAreasTable({ data }: ResearchAreasTableProps) {
               <Typography>Target</Typography>
             </TableCell>
             <TableCell>
-              <Typography>Categories</Typography>
-            </TableCell>
-            <TableCell>
               <Typography>Count</Typography>
             </TableCell>
             <TableCell align="right">
@@ -59,7 +56,6 @@ export default function ResearchAreasTable({ data }: ResearchAreasTableProps) {
                 {row.source}
               </TableCell>
               <TableCell>{row.target}</TableCell>
-              <TableCell>{row.category}</TableCell>
               <TableCell>{row.count}</TableCell>
               <TableCell align="right">%</TableCell>
             </TableRow>
@@ -68,4 +64,4 @@ export default function ResearchAreasTable({ data }: ResearchAreasTableProps) {
       </Table>
     </TableContainer>
   );
-}
+};

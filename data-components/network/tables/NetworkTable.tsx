@@ -56,7 +56,7 @@ export const NetworkTable = ({ data }: NetworkTableProps) => {
                 {row.source}
               </TableCell>
               <TableCell>{row.target}</TableCell>
-              <TableCell>{row.count}</TableCell>
+              <TableCell align="right">{row.count}</TableCell>
               <TableCell align="right">%</TableCell>
             </TableRow>
           ))}

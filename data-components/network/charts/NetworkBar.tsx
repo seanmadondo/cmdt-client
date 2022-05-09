@@ -1,17 +1,16 @@
-import { Chart } from "../../components/Chart";
+import { Chart } from "../../../components/Chart";
 
-interface ResearchAreasBarChartProps {
+interface NetworkBarChartProps {
   data: any;
 }
 
 interface ChartDataProps {
   source: string;
   target: string;
-  category: string;
   count: number;
 }
 
-export const ResearchAreasBarChart = ({ data }: ResearchAreasBarChartProps) => {
+export const NetworkBarChart = ({ data }: NetworkBarChartProps) => {
   const categories: string[] = [];
   const seriesData: any[] = [];
 
@@ -21,8 +20,8 @@ export const ResearchAreasBarChart = ({ data }: ResearchAreasBarChartProps) => {
   )[0] as ChartDataProps[];
 
   //populate barChart categories & series data
-  chartData.map(({ source, target, category, count }) => {
-    categories.push(category);
+  chartData.map(({ source, target, count }) => {
+    categories.push(target);
     seriesData.push(count);
   });
 
@@ -42,7 +41,7 @@ export const ResearchAreasBarChart = ({ data }: ResearchAreasBarChartProps) => {
       xAxisCategories={categories}
       yAxisTitle={"Count"}
       showLegend={false}
-      chartHeight="115%"
+      chartHeight={"650px"}
     />
   );
 };

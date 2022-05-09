@@ -60,7 +60,7 @@ export default function ResearchAreasTable({ data }: ResearchAreasTableProps) {
               </TableCell>
               <TableCell>{row.target}</TableCell>
               <TableCell>{row.category}</TableCell>
-              <TableCell>{row.count}</TableCell>
+              <TableCell align="right">{row.count}</TableCell>
               <TableCell align="right">%</TableCell>
             </TableRow>
           ))}

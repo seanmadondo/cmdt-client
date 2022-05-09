@@ -13,6 +13,7 @@ interface ChartProps {
   includeDataLabels?: true;
   showLegend?: boolean;
   toolTipValueSuffix?: string; // thousands, millions etc
+  chartHeight?: string; // 60%, 250px etc
 }
 
 export const Chart = ({
@@ -26,11 +27,12 @@ export const Chart = ({
   series,
   toolTipValueSuffix,
   showLegend,
+  chartHeight,
 }: ChartProps) => {
   const chartOptions = {
     chart: {
       type: chartType,
-      height: "100%",
+      height: chartHeight,
     },
     title: {
       text: chartTitle,
@@ -41,11 +43,15 @@ export const Chart = ({
     tooltip: {
       valueSuffix: " " + toolTipValueSuffix,
     },
+    scrollbars: {
+      enabled: true,
+    },
     xAxis: {
       categories: xAxisCategories,
       title: {
         text: xAxisTitle,
       },
+      scalable: true,
     },
     yAxis: {
       min: 0,

@@ -45,6 +45,7 @@ export const TotalPublicationsBarChart = ({
       xAxisCategories={categories}
       yAxisTitle={"Count"}
       showLegend={false}
+      chartHeight="100%"
     />
   );
 };

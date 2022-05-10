@@ -6,6 +6,7 @@ import { PageToolbar } from "../components/PageToolbar";
 import { TotalPublications } from "../data-components/overview/tables/TotalPublications";
 import TotalByCategory from "../data-components/overview/tables/TotalByCategory";
 import { TotalPublicationsPieChart } from "../data-components/overview/charts/TotalPublicationsPie";
+import { Dropdown } from "../components/Dropdown";
 
 export async function getServerSideProps() {
   //Fetch
@@ -22,14 +23,28 @@ export async function getServerSideProps() {
   };
 }
 
+// export async function getServerSideProps() {
+//   //Fetch
+//   const [overviewData, categoryData] = await Promise.all([
+//     fetch("https://nz-innovation-api.herokuapp.com/overview").then((r) =>
+//       r.json()
+//     ),
+//     fetch("https://nz-innovation-api.herokuapp.com/overview_by_category").then(
+//       (r) => r.json()
+//     ),
+//   ]);
+//   //Data
+//   //const data = await response.json();
+
+//   //Pass data into page
+//   return {
+//     props: { overviewData, categoryData },
+//     //revalidate: 1000, // In seconds
+//   };
+// }
+
 const Overview: NextPage = (data) => {
-  if (!data) {
-    return (
-      <div>
-        <LinearProgress color="secondary" />
-      </div>
-    );
-  }
+  const categoryOptions = ["Biomedical engineering"];
 
   return (
     <div>
@@ -64,10 +79,16 @@ const Overview: NextPage = (data) => {
           <TotalPublicationsBarChart data={data} />
         </Paper>
       </Box>
-      {/* <div css={{ marginTop: 10 }}>
+      <div css={{ marginTop: 10 }}>
         <PageToolbar>
           <Typography>By Category</Typography>
-          <CategorySelect />
+          <div css={{ marginLeft: "3%" }}>
+            <Dropdown
+              options={categoryOptions}
+              label="Category"
+              defaultValue="Biomedical engineering"
+            />
+          </div>
         </PageToolbar>
         <Box
           css={{ display: "flex", flexDirection: "row", alignItems: "center" }}
@@ -86,11 +107,9 @@ const Overview: NextPage = (data) => {
               width: "30%",
               marginLeft: "5%",
             }}
-          >
-            <TotalPublicationsPieChart />
-          </Paper>
+          ></Paper>
         </Box>
-      </div> */}
+      </div>
     </div>
   );
 };

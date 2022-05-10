@@ -14,7 +14,7 @@ export async function getServerSideProps() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ sources: ["ABI"], targets: ["AUT"] }),
+      body: JSON.stringify({ sources: ["ABI"], targets: ["ALL"] }),
     }
   );
   //Data
@@ -28,21 +28,52 @@ export async function getServerSideProps() {
 }
 
 const Fingerprint: NextPage = (data) => {
-  const someData = ["10", "20", "30"];
+  const sourceData = [
+    "ABI",
+    "AUT",
+    "CDHB",
+    "CI",
+    "LU",
+    "MU",
+    "UoA",
+    "UoC",
+    "UoO",
+    "UoW",
+    "VUW",
+  ];
 
-  console.log(data);
+  const targetData = [
+    "ALL",
+    "ABI",
+    "AUT",
+    "CDHB",
+    "CI",
+    "LU",
+    "MU",
+    "UoA",
+    "UoC",
+    "UoO",
+    "UoW",
+    "VUW",
+  ];
+  // console.log(data);
   return (
     <div>
       <PageToolbar>
         <Typography>Research Areas</Typography>
-        {/* <Dropdown label="Target" options={someData} /> */}
+        <div css={{ marginLeft: "3%" }}>
+          <Dropdown options={sourceData} label="Source" defaultValue="ABI" />
+        </div>
+        <div css={{ marginLeft: "3%" }}>
+          <Dropdown options={targetData} label="Target" defaultValue="ALL" />
+        </div>
       </PageToolbar>
       <Box
         css={{ display: "flex", flexDirection: "row", alignItems: "center" }}
       >
         <Paper
           elevation={3}
-          css={{ alignContent: "center", borderRadius: 10, width: "40%" }}
+          css={{ alignContent: "center", borderRadius: 10, width: "45%" }}
         >
           <ResearchAreasTable data={data} />
         </Paper>
@@ -58,3 +89,6 @@ const Fingerprint: NextPage = (data) => {
 };
 
 export default Fingerprint;
+function useState(arg0: string): [any, any] {
+  throw new Error("Function not implemented.");
+}

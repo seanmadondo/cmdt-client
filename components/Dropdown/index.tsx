@@ -1,35 +1,48 @@
 /** @jsxImportSource @emotion/react */
-import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 import React from "react";
 
 interface DropdownProps {
   label?: string;
-  placeholder?: string;
   options: string[];
-  handleChange?: () => void;
+  defaultValue?: string;
 }
 
-export const Dropdown = ({
-  label,
-  placeholder,
-  options,
-  handleChange,
-}: DropdownProps) => {
+export const Dropdown = ({ label, options, defaultValue }: DropdownProps) => {
+  const [source, setSource] = React.useState(defaultValue ?? "");
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setSource(event.target.value as string);
+  };
+
   return (
     <Box css={{ minWidth: "250px" }}>
       <FormControl fullWidth>
-        <InputLabel>{placeholder}</InputLabel>
+        <InputLabel>{label}</InputLabel>
         <Select
-          labelId="select-component"
-          id="select-component"
-          value={""}
+          css={{
+            height: "55px",
+          }}
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={source}
           label={label}
           onChange={handleChange}
         >
           {options.map((option) => {
-            <MenuItem value={option}>{option}</MenuItem>;
+            return (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            );
           })}
-          <MenuItem value={10}>{"ja"}</MenuItem>;
         </Select>
       </FormControl>
     </Box>

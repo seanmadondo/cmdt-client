@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode } from "react";
 import Head from "next/head";
 import { Navbar } from "./Navbar";
 import { ThemeProvider } from "@mui/material/styles";

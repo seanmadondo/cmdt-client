@@ -20,13 +20,20 @@ export const PageToolbar = ({ children }: PageToolbarProps) => {
           css={{
             display: "flex",
             flexDirection: "row",
-            alignContent: "center",
+            // alignContent: "center",
+            alignItems: "center",
           }}
         >
           {children}
         </Container>
       </Box>
-      <Divider variant="fullWidth" css={{ marginBottom: "20px" }} />
+      <Divider
+        variant="fullWidth"
+        css={{
+          marginBottom: "20px",
+          marginTop: Object(children).length > 1 ? "30px" : "inherit",
+        }}
+      />
     </>
   );
 };

@@ -19,6 +19,7 @@ interface RowDataProps {
   target: string;
   category: string;
   count: number;
+  percentage: number;
 }
 
 export default function ResearchAreasTable({ data }: ResearchAreasTableProps) {
@@ -61,7 +62,9 @@ export default function ResearchAreasTable({ data }: ResearchAreasTableProps) {
               <TableCell>{row.target}</TableCell>
               <TableCell>{row.category}</TableCell>
               <TableCell align="right">{row.count}</TableCell>
-              <TableCell align="right">%</TableCell>
+              <TableCell align="right">
+                {parseFloat(row.percentage.toString()).toFixed(2)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

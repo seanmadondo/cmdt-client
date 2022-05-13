@@ -9,10 +9,12 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useFingerprintContext } from "../../contexts/FingerprintProvider";
 
-interface ResearchAreasTableProps {
-  data: any;
-}
+// interface ResearchAreasTableProps {
+//   data: any;
+// }
 
 interface RowDataProps {
   source: string;
@@ -22,7 +24,19 @@ interface RowDataProps {
   percentage: number;
 }
 
-export default function ResearchAreasTable({ data }: ResearchAreasTableProps) {
+export default function ResearchAreasTable() {
+  // const myContext: any = useFingerprintContext();
+  const [data, setData] = useState<any>(useFingerprintContext());
+  //Get data from fingerprint context
+  //let data: any = useFingerprintContext();
+
+  // console.log(myContext);
+  // useEffect(() => {
+  //   if (myContext) {
+  //     myContext.data !== data && setData(myContext.data);
+  //   }
+  // }, [data, setData, myContext]);
+
   //Process & populate table data
   const rowData: RowDataProps[] = Object.values(data.data)[0] as RowDataProps[];
 

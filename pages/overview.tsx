@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Divider, LinearProgress, Paper, Typography } from "@mui/material";
+import { Box, Divider, Paper, Typography } from "@mui/material";
 import type { NextPage } from "next";
 import { TotalPublicationsBarChart } from "../data-components/overview/charts/TotalPublicationsBar";
 import { PageToolbar } from "../components/PageToolbar";
@@ -7,43 +7,26 @@ import { TotalPublications } from "../data-components/overview/tables/TotalPubli
 import TotalByCategory from "../data-components/overview/tables/TotalByCategory";
 import { TotalPublicationsPieChart } from "../data-components/overview/charts/TotalPublicationsPie";
 import { Dropdown } from "../components/Dropdown";
+import { PublicationsByCategoryPie } from "../data-components/overview/charts/PublicationsByCategoryPie";
 
 export async function getServerSideProps() {
   //Fetch
-  const response = await fetch(
-    "https://nz-innovation-api.herokuapp.com/overview"
-  );
-  //Data
-  const data = await response.json();
+  const [overviewData, categoryData] = await Promise.all([
+    fetch("https://nz-innovation-api.herokuapp.com/overview").then((r) =>
+      r.json()
+    ),
+    fetch("https://nz-innovation-api.herokuapp.com/overview_by_category").then(
+      (r) => r.json()
+    ),
+  ]);
 
   //Pass data into page
   return {
-    props: { data },
-    //revalidate: 1000, // In seconds
+    props: { overviewData, categoryData },
   };
 }
 
-// export async function getServerSideProps() {
-//   //Fetch
-//   const [overviewData, categoryData] = await Promise.all([
-//     fetch("https://nz-innovation-api.herokuapp.com/overview").then((r) =>
-//       r.json()
-//     ),
-//     fetch("https://nz-innovation-api.herokuapp.com/overview_by_category").then(
-//       (r) => r.json()
-//     ),
-//   ]);
-//   //Data
-//   //const data = await response.json();
-
-//   //Pass data into page
-//   return {
-//     props: { overviewData, categoryData },
-//     //revalidate: 1000, // In seconds
-//   };
-// }
-
-const Overview: NextPage = (data) => {
+const Overview: NextPage = ({ overviewData, categoryData }: any) => {
   const categoryOptions = ["Biomedical engineering"];
 
   return (
@@ -58,7 +41,7 @@ const Overview: NextPage = (data) => {
           elevation={3}
           css={{ alignContent: "center", borderRadius: 10, width: "30%" }}
         >
-          <TotalPublications data={data} isLoading={!data} />
+          <TotalPublications data={{ data: overviewData }} />
         </Paper>
         <Paper
           elevation={0}
@@ -69,14 +52,14 @@ const Overview: NextPage = (data) => {
             marginLeft: "5%",
           }}
         >
-          <TotalPublicationsPieChart data={data} />
+          <TotalPublicationsPieChart data={{ data: overviewData }} />
         </Paper>
         <Divider orientation="vertical" />
         <Paper
           elevation={0}
           css={{ borderRadius: 10, width: "50%", marginLeft: "5%" }}
         >
-          <TotalPublicationsBarChart data={data} />
+          <TotalPublicationsBarChart data={{ data: overviewData }} />
         </Paper>
       </Box>
       <div css={{ marginTop: 10 }}>
@@ -87,6 +70,7 @@ const Overview: NextPage = (data) => {
               options={categoryOptions}
               label="Category"
               defaultValue="Biomedical engineering"
+              ctx="Overview"
             />
           </div>
         </PageToolbar>
@@ -97,17 +81,19 @@ const Overview: NextPage = (data) => {
             elevation={0}
             css={{ alignContent: "center", borderRadius: 10, width: "60%" }}
           >
-            <TotalByCategory />
+            <TotalByCategory data={{ data: categoryData }} />
           </Paper>
           <Paper
             elevation={0}
             css={{
               alignContent: "center",
               borderRadius: 10,
-              width: "30%",
+              width: "40%",
               marginLeft: "5%",
             }}
-          ></Paper>
+          >
+            <PublicationsByCategoryPie data={{ data: categoryData }} />
+          </Paper>
         </Box>
       </div>
     </div>

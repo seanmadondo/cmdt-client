@@ -41,6 +41,7 @@ export const TotalPublicationsPieChart = ({
       series={series}
       includeDataLabels
       showLegend={false}
+      toolTipValueSuffix="Thousand"
     />
   );
 };

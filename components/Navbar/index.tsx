@@ -81,7 +81,7 @@ export const Navbar = () => {
               css={{
                 "& .MuiTabs-indicator": { backgroundColor: "#41255D" },
                 "& .Mui-selected": {
-                  color: "#242424 !important",
+                  color: "#41255D !important",
                   fontWeight: "bold",
                 },
               }}
@@ -128,7 +128,7 @@ export const Navbar = () => {
                   </MenuItem>
                 ))} */}
                 <MenuItem>
-                  <Link href="/api/auth/logout">
+                  <Link href="/api/auth/logout" passHref>
                     <Typography textAlign="center">Logout</Typography>
                   </Link>
                 </MenuItem>

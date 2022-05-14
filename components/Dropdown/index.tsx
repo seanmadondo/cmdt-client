@@ -14,12 +14,23 @@ interface DropdownProps {
   label?: string;
   options: string[];
   defaultValue?: string;
+  ctx: "Fingerprint" | "Overview" | "Network" | "Grants";
 }
 
-export const Dropdown = ({ label, options, defaultValue }: DropdownProps) => {
+export const Dropdown = ({
+  label,
+  options,
+  defaultValue,
+  ctx,
+}: DropdownProps) => {
   const [source, setSource] = React.useState(defaultValue ?? "");
-
   const myContext: any = useFingerprintContext();
+
+  // function getCurrentContext(ctx: string) {
+  //   if (ctx === "Fingerprint") {
+  //     return useFingerprintContext();
+  //   }
+  // }
 
   const handleChange = (event: SelectChangeEvent) => {
     setSource(event.target.value as string);

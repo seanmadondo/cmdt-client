@@ -17,12 +17,6 @@ interface DropdownProps {
   ctx: "Fingerprint" | "Overview" | "Network" | "Grants";
 }
 
-const getCurrentContext = (ctx: string) => {
-  if (ctx === "Fingerprint") {
-    return useFingerprintContext();
-  }
-};
-
 export const Dropdown = ({
   label,
   options,
@@ -30,8 +24,13 @@ export const Dropdown = ({
   ctx,
 }: DropdownProps) => {
   const [source, setSource] = React.useState(defaultValue ?? "");
-
   const myContext: any = getCurrentContext(ctx);
+
+  function getCurrentContext(ctx: string) {
+    if (ctx === "Fingerprint") {
+      return useFingerprintContext();
+    }
+  }
 
   const handleChange = (event: SelectChangeEvent) => {
     setSource(event.target.value as string);

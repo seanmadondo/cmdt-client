@@ -11,25 +11,29 @@ import {
   Typography,
 } from "@mui/material";
 
-function createTotalByCategoryData(
-  category: string,
-  university: string,
-  count: number
-) {
-  return { category, university, count };
+interface TotalByCategoryProps {
+  data: any;
 }
 
-const rows = [
-  createTotalByCategoryData("Biomedical engineering", "UoA", 87620),
-  createTotalByCategoryData("Biomedical engineering", "UoC", 87620),
-  createTotalByCategoryData("Biomedical engineering", "UoO", 87620),
-  createTotalByCategoryData("Biomedical engineering", "AUT", 87620),
-  createTotalByCategoryData("Biomedical engineering", "UoW", 87620),
-  createTotalByCategoryData("Biomedical engineering", "MU", 87620),
-  createTotalByCategoryData("Biomedical engineering", "VU", 87620),
-];
+interface RowDataProps {
+  category: string;
+  source: string;
+  count: number;
+}
 
-export default function TotalByCategory() {
+export default function TotalByCategory({ data }: TotalByCategoryProps) {
+  //Process & populate table data
+  const rowData: RowDataProps[] = Object.values(data.data)[0] as RowDataProps[];
+
+  //calculate total count
+  function calculateTotalCount() {
+    let totalCount: number = 0;
+    rowData.map(({ category, source, count }) => {
+      totalCount += count;
+    });
+    return totalCount;
+  }
+
   return (
     <TableContainer component={Paper}>
       <Table size="small">
@@ -44,7 +48,7 @@ export default function TotalByCategory() {
               <Typography>Category</Typography>
             </TableCell>
             <TableCell>
-              <Typography>University</Typography>
+              <Typography>Source</Typography>
             </TableCell>
             <TableCell align="right">
               <Typography>Count</Typography>
@@ -52,13 +56,13 @@ export default function TotalByCategory() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.university}>
+          {rowData.map((row: RowDataProps) => (
+            <TableRow key={row.source}>
               <TableCell component="th" scope="row">
                 {row.category}
               </TableCell>
               <TableCell component="th" scope="row">
-                {row.university}
+                {row.source}
               </TableCell>
               <TableCell align="right">{row.count}</TableCell>
             </TableRow>
@@ -76,7 +80,7 @@ export default function TotalByCategory() {
             </TableCell>
             <TableCell />
             <TableCell align="right">
-              <Typography>226980</Typography>
+              <Typography>{calculateTotalCount()}</Typography>
             </TableCell>
           </TableRow>
         </TableFooter>

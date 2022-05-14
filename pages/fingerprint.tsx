@@ -62,10 +62,20 @@ const Fingerprint: NextPage = (data) => {
       <PageToolbar>
         <Typography>Research Areas</Typography>
         <div css={{ marginLeft: "3%" }}>
-          <Dropdown options={sourceData} label="Source" defaultValue="ABI" />
+          <Dropdown
+            options={sourceData}
+            label="Source"
+            defaultValue="ABI"
+            ctx="Fingerprint"
+          />
         </div>
         <div css={{ marginLeft: "3%" }}>
-          <Dropdown options={targetData} label="Target" defaultValue="ALL" />
+          <Dropdown
+            options={targetData}
+            label="Target"
+            defaultValue="ALL"
+            ctx="Fingerprint"
+          />
         </div>
       </PageToolbar>
       <Box

@@ -86,7 +86,7 @@ export const LandingPage = () => {
                   },
                 }}
               >
-                <Link href="/api/auth/login">
+                <Link href="/api/auth/login" passHref>
                   <Typography>Log In</Typography>
                 </Link>
               </Button>

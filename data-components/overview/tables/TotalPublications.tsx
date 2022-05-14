@@ -13,7 +13,6 @@ import {
 
 interface TotalPublicationsProps {
   data: any;
-  isLoading: boolean;
 }
 
 interface RowDataProps {
@@ -21,15 +20,7 @@ interface RowDataProps {
   count: number;
 }
 
-export const TotalPublications = ({
-  data,
-  isLoading,
-}: TotalPublicationsProps) => {
-  //present loading
-  if (isLoading) {
-    return <div>loading...</div>;
-  }
-
+export const TotalPublications = ({ data }: TotalPublicationsProps) => {
   //Process & populate table data
   const rowData: RowDataProps[] = Object.values(data.data)[0] as RowDataProps[];
 

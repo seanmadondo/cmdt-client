@@ -17,11 +17,11 @@ interface DropdownProps {
   ctx: "Fingerprint" | "Overview" | "Network" | "Grants";
 }
 
-function getCurrentContext(ctx: string) {
+const getCurrentContext = (ctx: string) => {
   if (ctx === "Fingerprint") {
     return useFingerprintContext();
   }
-}
+};
 
 export const Dropdown = ({
   label,

@@ -24,13 +24,13 @@ export const Dropdown = ({
   ctx,
 }: DropdownProps) => {
   const [source, setSource] = React.useState(defaultValue ?? "");
-  const myContext: any = getCurrentContext(ctx);
+  const myContext: any = useFingerprintContext();
 
-  function getCurrentContext(ctx: string) {
-    if (ctx === "Fingerprint") {
-      return useFingerprintContext();
-    }
-  }
+  // function getCurrentContext(ctx: string) {
+  //   if (ctx === "Fingerprint") {
+  //     return useFingerprintContext();
+  //   }
+  // }
 
   const handleChange = (event: SelectChangeEvent) => {
     setSource(event.target.value as string);

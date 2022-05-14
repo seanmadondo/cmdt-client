@@ -5,6 +5,7 @@ import { PageToolbar } from "../components/PageToolbar";
 import ResearchAreasTable from "../data-components/fingerprint/ResearchAreasTable";
 import { ResearchAreasBarChart } from "../data-components/fingerprint/ResearchAreasBar";
 import { Dropdown } from "../components/Dropdown";
+import { FingerprintProvider } from "../contexts/FingerprintProvider";
 
 export async function getServerSideProps() {
   const response = await fetch(
@@ -23,7 +24,6 @@ export async function getServerSideProps() {
   //Pass data into page
   return {
     props: { data },
-    //revalidate: 1000, // In seconds
   };
 }
 
@@ -56,9 +56,9 @@ const Fingerprint: NextPage = (data) => {
     "UoW",
     "VUW",
   ];
-  // console.log(data);
+
   return (
-    <div>
+    <FingerprintProvider value={data}>
       <PageToolbar>
         <Typography>Research Areas</Typography>
         <div css={{ marginLeft: "3%" }}>
@@ -75,20 +75,17 @@ const Fingerprint: NextPage = (data) => {
           elevation={3}
           css={{ alignContent: "center", borderRadius: 10, width: "45%" }}
         >
-          <ResearchAreasTable data={data} />
+          <ResearchAreasTable />
         </Paper>
         <Paper
           elevation={0}
           css={{ borderRadius: 10, width: "50%", marginLeft: "5%" }}
         >
-          <ResearchAreasBarChart data={data} />
+          <ResearchAreasBarChart />
         </Paper>
       </Box>
-    </div>
+    </FingerprintProvider>
   );
 };
 
 export default Fingerprint;
-function useState(arg0: string): [any, any] {
-  throw new Error("Function not implemented.");
-}

@@ -9,10 +9,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-
-interface ResearchAreasTableProps {
-  data: any;
-}
+import { useEffect, useState } from "react";
+import { useFingerprintContext } from "../../contexts/FingerprintProvider";
 
 interface RowDataProps {
   source: string;
@@ -22,7 +20,10 @@ interface RowDataProps {
   percentage: number;
 }
 
-export default function ResearchAreasTable({ data }: ResearchAreasTableProps) {
+export default function ResearchAreasTable() {
+  //Get data from fingerprint context
+  let data: any = useFingerprintContext();
+
   //Process & populate table data
   const rowData: RowDataProps[] = Object.values(data.data)[0] as RowDataProps[];
 

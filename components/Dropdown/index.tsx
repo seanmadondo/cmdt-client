@@ -23,7 +23,7 @@ export const Dropdown = ({ label, options, defaultValue }: DropdownProps) => {
 
   const handleChange = (event: SelectChangeEvent) => {
     setSource(event.target.value as string);
-    myContext.updateQuery(event.target.value, "ALL");
+    myContext.updateQuery(event.target.value, label);
   };
 
   return (

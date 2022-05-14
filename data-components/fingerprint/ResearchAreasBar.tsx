@@ -1,8 +1,5 @@
 import { Chart } from "../../components/Chart";
-
-interface ResearchAreasBarChartProps {
-  data: any;
-}
+import { useFingerprintContext } from "../../contexts/FingerprintProvider";
 
 interface ChartDataProps {
   source: string;
@@ -11,7 +8,10 @@ interface ChartDataProps {
   count: number;
 }
 
-export const ResearchAreasBarChart = ({ data }: ResearchAreasBarChartProps) => {
+export const ResearchAreasBarChart = () => {
+  //Get data from fingerprint context
+  let data: any = useFingerprintContext();
+
   const categories: string[] = [];
   const seriesData: any[] = [];
 

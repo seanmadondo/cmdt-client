@@ -12,10 +12,6 @@ import {
 import { useEffect, useState } from "react";
 import { useFingerprintContext } from "../../contexts/FingerprintProvider";
 
-// interface ResearchAreasTableProps {
-//   data: any;
-// }
-
 interface RowDataProps {
   source: string;
   target: string;
@@ -25,17 +21,8 @@ interface RowDataProps {
 }
 
 export default function ResearchAreasTable() {
-  // const myContext: any = useFingerprintContext();
-  const [data, setData] = useState<any>(useFingerprintContext());
   //Get data from fingerprint context
-  //let data: any = useFingerprintContext();
-
-  // console.log(myContext);
-  // useEffect(() => {
-  //   if (myContext) {
-  //     myContext.data !== data && setData(myContext.data);
-  //   }
-  // }, [data, setData, myContext]);
+  let data: any = useFingerprintContext();
 
   //Process & populate table data
   const rowData: RowDataProps[] = Object.values(data.data)[0] as RowDataProps[];

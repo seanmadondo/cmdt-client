@@ -24,7 +24,6 @@ export async function getServerSideProps() {
   //Pass data into page
   return {
     props: { data },
-    //revalidate: 1000, // In seconds
   };
 }
 
@@ -82,7 +81,7 @@ const Fingerprint: NextPage = (data) => {
           elevation={0}
           css={{ borderRadius: 10, width: "50%", marginLeft: "5%" }}
         >
-          <ResearchAreasBarChart data={data} />
+          <ResearchAreasBarChart />
         </Paper>
       </Box>
     </FingerprintProvider>

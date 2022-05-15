@@ -15,7 +15,7 @@ export async function getServerSideProps() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        sources: ["ABI"],
+        sources: ["ABI", "VUW", "AUT", "MU", "CDHB", "UoA", "UoO"],
         targets: [
           "Auckland University of Technology",
           "University of Auckland",
@@ -30,6 +30,10 @@ export async function getServerSideProps() {
           "Massey University",
           "Christchurch Hospital New Zealand",
           "Victoria University of Wellington",
+          "Callaghan Innovation",
+          "Lincoln University",
+          "Auckland Bioengineering Institute",
+          "Canterbury District Health Board",
         ],
       }),
     }

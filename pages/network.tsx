@@ -2,6 +2,7 @@
 import { Box, Paper, Typography } from "@mui/material";
 import type { NextPage } from "next";
 import { PageToolbar } from "../components/PageToolbar";
+import { DependencyWheelChart } from "../data-components/network/charts/DependancyWheelChart";
 import { NetworkBarChart } from "../data-components/network/charts/NetworkBar";
 import { NetworkTable } from "../data-components/network/tables/NetworkTable";
 
@@ -13,7 +14,28 @@ export async function getServerSideProps() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ sources: ["ABI"] }),
+      body: JSON.stringify({
+        sources: ["ABI", "VUW", "AUT", "MU", "CDHB", "UoA", "UoO"],
+        targets: [
+          "Auckland University of Technology",
+          "University of Auckland",
+          "University of Canterbury",
+          "Institute of Environmental Science & Research (ESR) - New Zealand",
+          "Unitec NZ",
+          "University of Waikato",
+          "AgResearch - New Zealand",
+          "Auckland City Hospital",
+          "Auckland District Health Board",
+          "University of Otago",
+          "Massey University",
+          "Christchurch Hospital New Zealand",
+          "Victoria University of Wellington",
+          "Callaghan Innovation",
+          "Lincoln University",
+          "Auckland Bioengineering Institute",
+          "Canterbury District Health Board",
+        ],
+      }),
     }
   );
   //Data
@@ -46,6 +68,21 @@ const Network: NextPage = (data) => {
           css={{ borderRadius: 10, width: "50%", marginLeft: "5%" }}
         >
           <NetworkBarChart data={data} />
+        </Paper>
+      </Box>
+      <Box
+        css={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          paddingTop: "8%",
+        }}
+      >
+        <Paper
+          elevation={0}
+          css={{ alignContent: "center", borderRadius: 10, width: "40%" }}
+        >
+          <DependencyWheelChart data={data} />
         </Paper>
       </Box>
     </div>

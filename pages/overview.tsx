@@ -8,6 +8,11 @@ import TotalByCategory from "../data-components/overview/tables/TotalByCategory"
 import { TotalPublicationsPieChart } from "../data-components/overview/charts/TotalPublicationsPie";
 import { Dropdown } from "../components/Dropdown";
 import { PublicationsByCategoryPie } from "../data-components/overview/charts/PublicationsByCategoryPie";
+import { useEffect, useState } from "react";
+
+interface CatergoryListProps {
+  categoryList: string[];
+}
 
 export async function getServerSideProps() {
   //Fetch
@@ -15,9 +20,16 @@ export async function getServerSideProps() {
     fetch("https://nz-innovation-api.herokuapp.com/overview").then((r) =>
       r.json()
     ),
-    fetch("https://nz-innovation-api.herokuapp.com/overview_by_category").then(
-      (r) => r.json()
-    ),
+    fetch("https://nz-innovation-api.herokuapp.com/subject", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        targets: ["ALL"],
+        categories: ["Engineering, Biomedical"],
+      }),
+    }).then((r) => r.json()),
   ]);
 
   //Pass data into page
@@ -27,7 +39,18 @@ export async function getServerSideProps() {
 }
 
 const Overview: NextPage = ({ overviewData, categoryData }: any) => {
-  const categoryOptions = ["Biomedical engineering"];
+  const [categoryList, setCategoryList] = useState<string[]>([
+    "Engineering, Biomedical",
+  ]);
+
+  useEffect(() => {
+    const getOverviewCategoryList = async () => {
+      const response = await fetch("/api/category-list");
+      const data: CatergoryListProps = await response.json();
+      setCategoryList(Object.values(data)[0]);
+    };
+    getOverviewCategoryList();
+  }, []);
 
   return (
     <div>
@@ -67,9 +90,9 @@ const Overview: NextPage = ({ overviewData, categoryData }: any) => {
           <Typography>By Category</Typography>
           <div css={{ marginLeft: "3%" }}>
             <Dropdown
-              options={categoryOptions}
+              options={categoryList}
               label="Category"
-              defaultValue="Biomedical engineering"
+              defaultValue="Engineering, Biomedical"
               ctx="Overview"
             />
           </div>

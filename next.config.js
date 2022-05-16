@@ -5,7 +5,7 @@ const nextConfig = {
     return [
       {
         // matching all API routes
-        source: "/:path*",
+        source: "/nz-innovation-api.herokuapp.com/:path*",
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
           { key: "Access-Control-Allow-Origin", value: "https://cmdt-client.vercel.app" },

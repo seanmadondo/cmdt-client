@@ -14,19 +14,16 @@ export function FingerprintProvider(props: any) {
     //check which parameters we are using for body
     requestType === "Target" && setCurrentTargetValue(option);
     requestType === "Source" && setCurrentSourceValue(option);
-    const response = await fetch(
-      "https://nz-innovation-api.herokuapp.com/subject",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sources: [requestType === "Source" ? option : currentSourceValue],
-          targets: [requestType === "Target" ? option : currentTargetValue],
-        }),
-      }
-    );
+    const response = await fetch("/api/subjects", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        sources: [requestType === "Source" ? option : currentSourceValue],
+        targets: [requestType === "Target" ? option : currentTargetValue],
+      }),
+    });
 
     //Update data
     const data = await response.json();

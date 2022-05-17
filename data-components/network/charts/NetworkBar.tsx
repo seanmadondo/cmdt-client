@@ -13,6 +13,7 @@ interface ChartDataProps {
 export const NetworkBarChart = ({ data }: NetworkBarChartProps) => {
   const categories: string[] = [];
   const seriesData: any[] = [];
+  const yaxisOptions: string[] = [];
 
   //process received data
   const chartData: ChartDataProps[] = Object.values(
@@ -21,23 +22,31 @@ export const NetworkBarChart = ({ data }: NetworkBarChartProps) => {
 
   //populate barChart categories & series data
   chartData.map(({ source, target, count }) => {
-    categories.push(target);
-    seriesData.push(count);
+    !categories.includes(target) && categories.push(target);
+
+    if (!yaxisOptions.includes(target)) {
+      yaxisOptions.push(target);
+      seriesData.push({
+        name: target,
+        data: [count],
+      });
+    } else {
+      seriesData.forEach(({ name, data }) => {
+        if (name === target) {
+          data.push(count);
+        }
+      });
+    }
   });
 
-  const series = [
-    {
-      data: seriesData,
-    },
-  ];
+  const series = seriesData;
 
   return (
     <Chart
       chartType={"bar"}
       toolTipValueSuffix=""
       series={series}
-      includeDataLabels
-      xAxisTitle={"Categories"}
+      xAxisTitle={"Target"}
       xAxisCategories={categories}
       yAxisTitle={"Count"}
       showLegend={false}

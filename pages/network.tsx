@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Box, Paper, Typography } from "@mui/material";
 import type { NextPage } from "next";
+import { Dropdown } from "../components/Dropdown";
 import { PageToolbar } from "../components/PageToolbar";
 import { DependencyWheelChart } from "../data-components/network/charts/DependancyWheelChart";
 import { NetworkBarChart } from "../data-components/network/charts/NetworkBar";
@@ -15,25 +16,37 @@ export async function getServerSideProps() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        sources: ["ABI", "VUW", "AUT", "MU", "CDHB", "UoA", "UoO"],
+        sources: [
+          "ABI",
+          "AUT",
+          "CDHB",
+          "CI",
+          "LU",
+          "MU",
+          "UoA",
+          "UoC",
+          "UoO",
+          "UoW",
+          "VUW",
+        ],
         targets: [
           "Auckland University of Technology",
           "University of Auckland",
           "University of Canterbury",
-          "Institute of Environmental Science & Research (ESR) - New Zealand",
+          // "Institute of Environmental Science & Research (ESR) - New Zealand",
           "Unitec NZ",
           "University of Waikato",
-          "AgResearch - New Zealand",
-          "Auckland City Hospital",
-          "Auckland District Health Board",
+          // "AgResearch - New Zealand",
+          // "Auckland City Hospital",
+          // "Auckland District Health Board",
           "University of Otago",
           "Massey University",
-          "Christchurch Hospital New Zealand",
+          // "Christchurch Hospital New Zealand",
           "Victoria University of Wellington",
           "Callaghan Innovation",
           "Lincoln University",
           "Auckland Bioengineering Institute",
-          "Canterbury District Health Board",
+          // "Canterbury District Health Board",
         ],
       }),
     }
@@ -49,10 +62,32 @@ export async function getServerSideProps() {
 }
 
 const Network: NextPage = (data) => {
+  const sourceData = [
+    "ALL",
+    "ABI",
+    "AUT",
+    "CDHB",
+    "CI",
+    "LU",
+    "MU",
+    "UoA",
+    "UoC",
+    "UoO",
+    "UoW",
+    "VUW",
+  ];
   return (
     <div>
       <PageToolbar>
         <Typography>Network of Organisations</Typography>
+        <div css={{ marginLeft: "3%" }}>
+          <Dropdown
+            options={sourceData}
+            label="Source"
+            defaultValue="ALL"
+            ctx="Network"
+          />
+        </div>
       </PageToolbar>
       <Box
         css={{ display: "flex", flexDirection: "row", alignItems: "center" }}

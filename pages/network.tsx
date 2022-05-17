@@ -76,6 +76,8 @@ const Network: NextPage = (data) => {
     "UoW",
     "VUW",
   ];
+
+  const areas = ["NZ Universities", "Wordlwide"];
   return (
     <div>
       <PageToolbar>
@@ -85,6 +87,14 @@ const Network: NextPage = (data) => {
             options={sourceData}
             label="Source"
             defaultValue="ALL"
+            ctx="Network"
+          />
+        </div>
+        <div css={{ marginLeft: "3%" }}>
+          <Dropdown
+            options={areas}
+            label="Area"
+            defaultValue="NZ Universities"
             ctx="Network"
           />
         </div>

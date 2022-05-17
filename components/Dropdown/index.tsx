@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useFingerprintContext } from "../../contexts/FingerprintProvider";
+import { useOverviewContext } from "../../contexts/OverviewProvider";
 
 interface DropdownProps {
   label?: string;
@@ -24,13 +25,15 @@ export const Dropdown = ({
   ctx,
 }: DropdownProps) => {
   const [source, setSource] = React.useState(defaultValue ?? "");
-  const myContext: any = useFingerprintContext();
+  let myContext: any;
 
-  // function getCurrentContext(ctx: string) {
-  //   if (ctx === "Fingerprint") {
-  //     return useFingerprintContext();
-  //   }
-  // }
+  if (ctx === "Fingerprint") {
+    myContext = useFingerprintContext();
+  }
+
+  if (ctx === "Overview") {
+    myContext = useOverviewContext();
+  }
 
   const handleChange = (event: SelectChangeEvent) => {
     setSource(event.target.value as string);

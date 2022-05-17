@@ -9,6 +9,7 @@ import { TotalPublicationsPieChart } from "../data-components/overview/charts/To
 import { Dropdown } from "../components/Dropdown";
 import { PublicationsByCategoryPie } from "../data-components/overview/charts/PublicationsByCategoryPie";
 import { useEffect, useState } from "react";
+import { OverviewProvider } from "../contexts/OverviewProvider";
 
 interface CatergoryListProps {
   categoryList: string[];
@@ -53,7 +54,7 @@ const Overview: NextPage = ({ overviewData, categoryData }: any) => {
   }, []);
 
   return (
-    <div>
+    <OverviewProvider value={categoryData}>
       <PageToolbar>
         <Typography>Total Publications</Typography>
       </PageToolbar>
@@ -104,7 +105,7 @@ const Overview: NextPage = ({ overviewData, categoryData }: any) => {
             elevation={0}
             css={{ alignContent: "center", borderRadius: 10, width: "60%" }}
           >
-            <TotalByCategory data={{ data: categoryData }} />
+            <TotalByCategory />
           </Paper>
           <Paper
             elevation={0}
@@ -115,11 +116,11 @@ const Overview: NextPage = ({ overviewData, categoryData }: any) => {
               marginLeft: "5%",
             }}
           >
-            <PublicationsByCategoryPie data={{ data: categoryData }} />
+            <PublicationsByCategoryPie />
           </Paper>
         </Box>
       </div>
-    </div>
+    </OverviewProvider>
   );
 };
 

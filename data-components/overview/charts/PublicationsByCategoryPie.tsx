@@ -1,9 +1,6 @@
 import React from "react";
 import { Chart } from "../../../components/Chart";
-
-interface PublicationsByCategoryPieProps {
-  data: any;
-}
+import { useOverviewContext } from "../../../contexts/OverviewProvider";
 
 interface ChartDataProps {
   category: string;
@@ -11,13 +8,14 @@ interface ChartDataProps {
   count: number;
 }
 
-export const PublicationsByCategoryPie = ({
-  data,
-}: PublicationsByCategoryPieProps) => {
+export const PublicationsByCategoryPie = () => {
+  //Get data from overview context
+  let data: any = useOverviewContext();
+
   //process received data
   const chartData: ChartDataProps[] = Object.values(
-    data.data
-  )[0] as ChartDataProps[];
+    data.subject
+  ) as ChartDataProps[];
 
   //populate chart series with data
   function generateSeriesData() {
@@ -42,7 +40,7 @@ export const PublicationsByCategoryPie = ({
       series={series}
       includeDataLabels
       showLegend={false}
-      toolTipValueSuffix="Thousand"
+      toolTipValueSuffix=""
     />
   );
 };

@@ -19,6 +19,7 @@ interface RowDataProps {
   source: string;
   target: string;
   count: number;
+  percentage: number;
 }
 
 export const NetworkTable = ({ data }: NetworkTableProps) => {
@@ -57,7 +58,9 @@ export const NetworkTable = ({ data }: NetworkTableProps) => {
               </TableCell>
               <TableCell>{row.target}</TableCell>
               <TableCell align="right">{row.count}</TableCell>
-              <TableCell align="right">%</TableCell>
+              <TableCell align="right">
+                {parseFloat(row.percentage.toString()).toFixed(2)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -10,10 +10,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-
-interface TotalByCategoryProps {
-  data: any;
-}
+import { useOverviewContext } from "../../../contexts/OverviewProvider";
 
 interface RowDataProps {
   category: string;
@@ -21,9 +18,12 @@ interface RowDataProps {
   count: number;
 }
 
-export default function TotalByCategory({ data }: TotalByCategoryProps) {
+export default function TotalByCategory() {
+  //Get data from overview context
+  let data: any = useOverviewContext();
+
   //Process & populate table data
-  const rowData: RowDataProps[] = Object.values(data.data)[0] as RowDataProps[];
+  const rowData: RowDataProps[] = Object.values(data.subject) as RowDataProps[];
 
   //calculate total count
   function calculateTotalCount() {
@@ -35,7 +35,7 @@ export default function TotalByCategory({ data }: TotalByCategoryProps) {
   }
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} css={{ height: "360px" }}>
       <Table size="small">
         <TableHead
           css={{
@@ -56,8 +56,8 @@ export default function TotalByCategory({ data }: TotalByCategoryProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rowData.map((row: RowDataProps) => (
-            <TableRow key={row.source}>
+          {rowData.map((row: RowDataProps, id) => (
+            <TableRow key={`${row.source}-${id}`}>
               <TableCell component="th" scope="row">
                 {row.category}
               </TableCell>

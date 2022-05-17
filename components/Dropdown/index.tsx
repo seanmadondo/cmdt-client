@@ -25,19 +25,15 @@ export const Dropdown = ({
   ctx,
 }: DropdownProps) => {
   const [source, setSource] = React.useState(defaultValue ?? "");
-  let myContext: any;
-
-  if (ctx === "Fingerprint") {
-    myContext = useFingerprintContext();
-  }
-
-  if (ctx === "Overview") {
-    myContext = useOverviewContext();
-  }
+  let fingerprintContext: any = useFingerprintContext();
+  let overviewContext: any = useOverviewContext();
 
   const handleChange = (event: SelectChangeEvent) => {
     setSource(event.target.value as string);
-    myContext.updateQuery(event.target.value, label);
+    ctx === "Fingerprint" &&
+      fingerprintContext.updateQuery(event.target.value, label);
+    ctx === "Overview" &&
+      overviewContext.updateQuery(event.target.value, label);
   };
 
   return (

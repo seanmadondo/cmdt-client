@@ -1,8 +1,5 @@
 import { Chart } from "../../../components/Chart";
-
-interface NetworkBarChartProps {
-  data: any;
-}
+import { useNetworkContext } from "../../../contexts/NetworkProvider";
 
 interface ChartDataProps {
   source: string;
@@ -10,7 +7,10 @@ interface ChartDataProps {
   count: number;
 }
 
-export const NetworkBarChart = ({ data }: NetworkBarChartProps) => {
+export const NetworkBarChart = () => {
+  //Get data from fingerprint context
+  let data: any = useNetworkContext();
+
   const categories: string[] = [];
   const seriesData: any[] = [];
   const yaxisOptions: string[] = [];

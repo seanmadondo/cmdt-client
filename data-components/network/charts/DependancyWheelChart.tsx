@@ -29,12 +29,18 @@ export const DependencyWheelChart = ({ data }: DependancyWheelChartProps) => {
 
   //populate chart series with data
   function generateSeriesData() {
-    const data: any[] = [];
+    let wheelData: any[] = [];
     chartData.map(({ source, target, count }: ChartDataProps) => {
-      data.push([source, target, count]);
+      wheelData.push([source, target, count]);
     });
-    return data;
+    return wheelData;
   }
+
+  const wheelData: any[] = generateSeriesData();
+  wheelData.sort(function (a, b) {
+    return a[0].localeCompare(b[0]);
+  });
+  console.log(wheelData);
 
   const options = {
     title: {
@@ -54,7 +60,7 @@ export const DependencyWheelChart = ({ data }: DependancyWheelChartProps) => {
     series: [
       {
         keys: ["from", "to", "weight"],
-        data: generateSeriesData(),
+        data: wheelData,
         type: "dependencywheel",
         name: "Dependency wheel series",
         dataLabels: {

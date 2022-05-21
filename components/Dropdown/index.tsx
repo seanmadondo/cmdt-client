@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useFingerprintContext } from "../../contexts/FingerprintProvider";
+import { useNetworkContext } from "../../contexts/NetworkProvider";
 import { useOverviewContext } from "../../contexts/OverviewProvider";
 
 interface DropdownProps {
@@ -27,6 +28,7 @@ export const Dropdown = ({
   const [source, setSource] = React.useState(defaultValue ?? "");
   let fingerprintContext: any = useFingerprintContext();
   let overviewContext: any = useOverviewContext();
+  let networkContext: any = useNetworkContext();
 
   const handleChange = (event: SelectChangeEvent) => {
     setSource(event.target.value as string);
@@ -34,6 +36,8 @@ export const Dropdown = ({
       fingerprintContext.updateQuery(event.target.value, label);
     ctx === "Overview" &&
       overviewContext.updateQuery(event.target.value, label);
+    ctx === "Network" &&
+      networkContext.updateQuery([event.target.value], label);
   };
 
   return (

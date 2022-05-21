@@ -2,7 +2,9 @@
 import { Box, Paper, Typography } from "@mui/material";
 import type { NextPage } from "next";
 import { Dropdown } from "../components/Dropdown";
+import { MultiSelectDropdown } from "../components/MultiSelectDropdown";
 import { PageToolbar } from "../components/PageToolbar";
+import { NetworkProvider } from "../contexts/NetworkProvider";
 import { DependencyWheelChart } from "../data-components/network/charts/DependancyWheelChart";
 import { NetworkBarChart } from "../data-components/network/charts/NetworkBar";
 import { NetworkTable } from "../data-components/network/tables/NetworkTable";
@@ -63,7 +65,6 @@ export async function getServerSideProps() {
 
 const Network: NextPage = (data) => {
   const sourceData = [
-    "ALL",
     "ABI",
     "AUT",
     "CDHB",
@@ -77,13 +78,13 @@ const Network: NextPage = (data) => {
     "VUW",
   ];
 
-  const areas = ["NZ Universities", "Wordlwide"];
+  const areas = ["NZ Universities", "Worldwide"];
   return (
-    <div>
+    <NetworkProvider value={data}>
       <PageToolbar>
         <Typography>Network of Organisations</Typography>
         <div css={{ marginLeft: "3%" }}>
-          <Dropdown
+          <MultiSelectDropdown
             options={sourceData}
             label="Source"
             defaultValue="ALL"
@@ -106,13 +107,13 @@ const Network: NextPage = (data) => {
           elevation={3}
           css={{ alignContent: "center", borderRadius: 10, width: "40%" }}
         >
-          <NetworkTable data={data} />
+          <NetworkTable />
         </Paper>
         <Paper
           elevation={0}
           css={{ borderRadius: 10, width: "50%", marginLeft: "5%" }}
         >
-          <NetworkBarChart data={data} />
+          <NetworkBarChart />
         </Paper>
       </Box>
       <Box
@@ -127,10 +128,10 @@ const Network: NextPage = (data) => {
           elevation={0}
           css={{ alignContent: "center", borderRadius: 10, width: "40%" }}
         >
-          <DependencyWheelChart data={data} />
+          {/* <DependencyWheelChart data={data} /> */}
         </Paper>
       </Box>
-    </div>
+    </NetworkProvider>
   );
 };
 

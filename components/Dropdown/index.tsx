@@ -16,7 +16,7 @@ interface DropdownProps {
   label?: string;
   options: string[];
   defaultValue?: string;
-  ctx: "Fingerprint" | "Overview" | "Network" | "Grants";
+  ctx: "Fingerprint" | "Overview" | "Network" | "Grants" | "NetworkCategory";
 }
 
 export const Dropdown = ({
@@ -38,6 +38,8 @@ export const Dropdown = ({
       overviewContext.updateQuery(event.target.value, label);
     ctx === "Network" &&
       networkContext.updateQuery([event.target.value], label);
+    ctx === "NetworkCategory" &&
+      networkContext.updateCategoryQuery(event.target.value, label);
   };
 
   return (

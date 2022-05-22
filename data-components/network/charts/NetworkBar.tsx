@@ -17,7 +17,7 @@ export const NetworkBarChart = () => {
 
   //process received data
   const chartData: ChartDataProps[] = Object.values(
-    data.data
+    data.networkData
   )[0] as ChartDataProps[];
 
   //populate barChart categories & series data

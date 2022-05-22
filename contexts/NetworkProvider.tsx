@@ -42,6 +42,11 @@ export function NetworkProvider(props: any) {
   const [value, setValue] = useState(props.value);
   const [currentSourceValue, setCurrentSourceValue] = useState(sourceData);
   const [currentAreaValue, setcurrentAreaValue] = useState(targetData);
+  const [currentCategoryValue, setCurrentCategoryValue] = useState(
+    "Engineering, Biomedical"
+  );
+  const [currentCategorySourceValue, setCurrentCategorySourceValue] =
+    useState("ABI");
 
   //update querydata when dropdowns change
   const updateQuery = async (option: string[], requestType: string) => {
@@ -78,11 +83,40 @@ export function NetworkProvider(props: any) {
 
     //Update data
     const data = await response.json();
-    setValue({ data: data });
+    setValue({ networkData: data, categoryData: value.categoryData });
+  };
+
+  const updateCategoryQuery = async (option: string, requestType: string) => {
+    //check which parameters we are using for body
+    requestType === "Category" && setCurrentCategoryValue(option);
+    requestType === "Source" && setCurrentCategorySourceValue(option);
+    const response = await fetch("/api/subjects", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        sources: [
+          requestType === "Source" ? option : currentCategorySourceValue,
+        ],
+        categories: [
+          requestType === "Category" ? option : currentCategoryValue,
+        ],
+      }),
+    });
+
+    //Update data
+    const data = await response.json();
+    setValue({
+      categoryData: data,
+      networkData: value.networkData,
+    });
   };
 
   return (
-    <NetworkContext.Provider value={{ ...value, updateQuery }}>
+    <NetworkContext.Provider
+      value={{ ...value, updateQuery, updateCategoryQuery }}
+    >
       {props.children}
     </NetworkContext.Provider>
   );

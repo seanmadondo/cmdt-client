@@ -10,10 +10,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-
-interface NetworkTableProps {
-  data: any;
-}
+import { useNetworkContext } from "../../../contexts/NetworkProvider";
 
 interface RowDataProps {
   source: string;
@@ -22,10 +19,13 @@ interface RowDataProps {
   percentage: number;
 }
 
-export const NetworkTable = ({ data }: NetworkTableProps) => {
+export const NetworkTable = () => {
+  //Get data from network context
+  let data: any = useNetworkContext();
   //Process & populate table data
-  const rowData: RowDataProps[] = Object.values(data.data)[0] as RowDataProps[];
-
+  const rowData: RowDataProps[] = Object.values(
+    data.networkData
+  )[0] as RowDataProps[];
   return (
     <TableContainer component={Paper} css={{ height: "650px" }}>
       <Table size="small">

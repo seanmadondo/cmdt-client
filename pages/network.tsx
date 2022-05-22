@@ -1,16 +1,24 @@
 /** @jsxImportSource @emotion/react */
 import { Box, Paper, Typography } from "@mui/material";
 import type { NextPage } from "next";
+import { useEffect, useState } from "react";
 import { Dropdown } from "../components/Dropdown";
+import { MultiSelectDropdown } from "../components/MultiSelectDropdown";
 import { PageToolbar } from "../components/PageToolbar";
+import { NetworkProvider } from "../contexts/NetworkProvider";
 import { DependencyWheelChart } from "../data-components/network/charts/DependancyWheelChart";
 import { NetworkBarChart } from "../data-components/network/charts/NetworkBar";
+import NetworkCategoryTable from "../data-components/network/tables/NetworkCategoryTable";
 import { NetworkTable } from "../data-components/network/tables/NetworkTable";
 
+interface CatergoryListProps {
+  categoryList: string[];
+}
+
 export async function getServerSideProps() {
-  const response = await fetch(
-    "https://nz-innovation-api.herokuapp.com/organisation",
-    {
+  //Fetch
+  const [networkData, categoryData] = await Promise.all([
+    fetch("https://nz-innovation-api.herokuapp.com/organisation", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,37 +41,51 @@ export async function getServerSideProps() {
           "Auckland University of Technology",
           "University of Auckland",
           "University of Canterbury",
-          // "Institute of Environmental Science & Research (ESR) - New Zealand",
           "Unitec NZ",
           "University of Waikato",
-          // "AgResearch - New Zealand",
-          // "Auckland City Hospital",
-          // "Auckland District Health Board",
           "University of Otago",
           "Massey University",
-          // "Christchurch Hospital New Zealand",
           "Victoria University of Wellington",
           "Callaghan Innovation",
           "Lincoln University",
           "Auckland Bioengineering Institute",
-          // "Canterbury District Health Board",
         ],
       }),
-    }
-  );
-  //Data
-  const data = await response.json();
+    }).then((r) => r.json()),
+    fetch("https://nz-innovation-api.herokuapp.com/subject", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        sources: ["ABI"],
+        targets: ["ALL"],
+        categories: ["Engineering, Biomedical"],
+      }),
+    }).then((r) => r.json()),
+  ]);
 
   //Pass data into page
   return {
-    props: { data },
-    //revalidate: 1000, // In seconds
+    props: { networkData, categoryData },
   };
 }
 
-const Network: NextPage = (data) => {
+const Network: NextPage = ({ networkData, categoryData }: any) => {
+  const [categoryList, setCategoryList] = useState<string[]>([
+    "Engineering, Biomedical",
+  ]);
+
+  useEffect(() => {
+    const getOverviewCategoryList = async () => {
+      const response = await fetch("/api/category-list");
+      const data: CatergoryListProps = await response.json();
+      setCategoryList(Object.values(data)[0]);
+    };
+    getOverviewCategoryList();
+  }, []);
+
   const sourceData = [
-    "ALL",
     "ABI",
     "AUT",
     "CDHB",
@@ -77,13 +99,13 @@ const Network: NextPage = (data) => {
     "VUW",
   ];
 
-  const areas = ["NZ Universities", "Wordlwide"];
+  const areas = ["NZ Universities"]; // TODO: Re-add worldwide option later.
   return (
-    <div>
+    <NetworkProvider value={{ networkData, categoryData }}>
       <PageToolbar>
         <Typography>Network of Organisations</Typography>
         <div css={{ marginLeft: "3%" }}>
-          <Dropdown
+          <MultiSelectDropdown
             options={sourceData}
             label="Source"
             defaultValue="ALL"
@@ -106,13 +128,13 @@ const Network: NextPage = (data) => {
           elevation={3}
           css={{ alignContent: "center", borderRadius: 10, width: "40%" }}
         >
-          <NetworkTable data={data} />
+          <NetworkTable />
         </Paper>
         <Paper
           elevation={0}
           css={{ borderRadius: 10, width: "50%", marginLeft: "5%" }}
         >
-          <NetworkBarChart data={data} />
+          <NetworkBarChart />
         </Paper>
       </Box>
       <Box
@@ -127,10 +149,52 @@ const Network: NextPage = (data) => {
           elevation={0}
           css={{ alignContent: "center", borderRadius: 10, width: "40%" }}
         >
-          <DependencyWheelChart data={data} />
+          {/* <DependencyWheelChart data={data} /> */}
         </Paper>
       </Box>
-    </div>
+      <div css={{ marginTop: 10 }}>
+        <PageToolbar>
+          <Typography>By Category</Typography>
+          <div css={{ marginLeft: "3%" }}>
+            <Dropdown
+              options={categoryList}
+              label="Category"
+              defaultValue="Engineering, Biomedical"
+              ctx="NetworkCategory"
+            />
+          </div>
+          <div css={{ marginLeft: "3%" }}>
+            <Dropdown
+              options={sourceData}
+              label="Source"
+              defaultValue="ABI"
+              ctx="NetworkCategory"
+            />
+          </div>
+        </PageToolbar>
+        <Box
+          css={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+        >
+          <Paper
+            elevation={0}
+            css={{ alignContent: "center", borderRadius: 10, width: "60%" }}
+          >
+            <NetworkCategoryTable />
+          </Paper>
+          <Paper
+            elevation={0}
+            css={{
+              alignContent: "center",
+              borderRadius: 10,
+              width: "40%",
+              marginLeft: "5%",
+            }}
+          >
+            {/* <PublicationsByCategoryPie /> */}
+          </Paper>
+        </Box>
+      </div>
+    </NetworkProvider>
   );
 };
 

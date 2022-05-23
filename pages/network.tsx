@@ -7,9 +7,11 @@ import { MultiSelectDropdown } from "../components/MultiSelectDropdown";
 import { PageToolbar } from "../components/PageToolbar";
 import { NetworkProvider } from "../contexts/NetworkProvider";
 import { DependencyWheelChart } from "../data-components/network/charts/DependancyWheelChart";
+import { DependencyWheelChartByCategory } from "../data-components/network/charts/DependencyWheelByCategory";
 import { NetworkBarChart } from "../data-components/network/charts/NetworkBar";
 import NetworkCategoryTable from "../data-components/network/tables/NetworkCategoryTable";
 import { NetworkTable } from "../data-components/network/tables/NetworkTable";
+import { MAIN_SOURCE_ABBR, NZ_ORGS } from "../utils/constants";
 
 interface CatergoryListProps {
   categoryList: string[];
@@ -24,32 +26,8 @@ export async function getServerSideProps() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        sources: [
-          "ABI",
-          "AUT",
-          "CDHB",
-          "CI",
-          "LU",
-          "MU",
-          "UoA",
-          "UoC",
-          "UoO",
-          "UoW",
-          "VUW",
-        ],
-        targets: [
-          "Auckland University of Technology",
-          "University of Auckland",
-          "University of Canterbury",
-          "Unitec NZ",
-          "University of Waikato",
-          "University of Otago",
-          "Massey University",
-          "Victoria University of Wellington",
-          "Callaghan Innovation",
-          "Lincoln University",
-          "Auckland Bioengineering Institute",
-        ],
+        sources: MAIN_SOURCE_ABBR,
+        targets: NZ_ORGS,
       }),
     }).then((r) => r.json()),
     fetch("https://nz-innovation-api.herokuapp.com/subject", {
@@ -137,22 +115,25 @@ const Network: NextPage = ({ networkData, categoryData }: any) => {
           <NetworkBarChart />
         </Paper>
       </Box>
-      <Box
-        css={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          paddingTop: "8%",
-        }}
-      >
-        <Paper
-          elevation={0}
-          css={{ alignContent: "center", borderRadius: 10, width: "40%" }}
+      <div>
+        <Box
+          css={{
+            display: "flex",
+            // flexDirection: "row",
+            alignItems: "center",
+            paddingTop: "35px",
+            jsutifyContent: "center",
+          }}
         >
-          {/* <DependencyWheelChart data={data} /> */}
-        </Paper>
-      </Box>
-      <div css={{ marginTop: 10 }}>
+          <Paper
+            elevation={0}
+            css={{ alignContent: "center", borderRadius: 10, width: "100%" }}
+          >
+            <DependencyWheelChart data={{ data: networkData }} />
+          </Paper>
+        </Box>
+      </div>
+      <div css={{ marginTop: 35 }}>
         <PageToolbar>
           <Typography>By Category</Typography>
           <div css={{ marginLeft: "3%" }}>
@@ -190,7 +171,7 @@ const Network: NextPage = ({ networkData, categoryData }: any) => {
               marginLeft: "5%",
             }}
           >
-            {/* <PublicationsByCategoryPie /> */}
+            <DependencyWheelChartByCategory />
           </Paper>
         </Box>
       </div>

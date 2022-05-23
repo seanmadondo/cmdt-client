@@ -4,14 +4,14 @@ import HighchartsReact from "highcharts-react-official";
 
 import HC_sankey from "highcharts/modules/sankey";
 import HC_depwheel from "highcharts/modules/dependency-wheel";
-import { switchOrg } from "../../../utils/constants";
+import { useNetworkContext } from "../../../contexts/NetworkProvider";
 
 if (typeof Highcharts === "object") {
   HC_sankey(Highcharts);
   HC_depwheel(Highcharts);
 }
 
-interface DependancyWheelChartProps {
+interface DependancyWheelChartByCategoryProps {
   data: any;
 }
 
@@ -22,10 +22,12 @@ interface ChartDataProps {
   percentage: number;
 }
 
-export const DependencyWheelChart = ({ data }: DependancyWheelChartProps) => {
+export const DependencyWheelChartByCategory = () => {
+  //Get data from overview context
+  let data: any = useNetworkContext();
   //process received data
   const chartData: ChartDataProps[] = Object.values(
-    data.data
+    data.categoryData
   )[0] as ChartDataProps[];
 
   //populate chart series with data
@@ -33,15 +35,14 @@ export const DependencyWheelChart = ({ data }: DependancyWheelChartProps) => {
     let seriesData: any[] = [];
     let currentTargetAbbr: string = "";
     chartData.map(({ source, target, count }: ChartDataProps) => {
-      currentTargetAbbr = switchOrg(target);
-      seriesData.push([source, currentTargetAbbr, count]);
+      seriesData.push([source, target, count]);
     });
     return seriesData;
   }
 
   const options = {
     title: {
-      text: "Network of New Zealand Universities",
+      text: "",
     },
 
     accessibility: {

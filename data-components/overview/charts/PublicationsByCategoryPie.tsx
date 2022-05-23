@@ -39,7 +39,7 @@ export const PublicationsByCategoryPie = () => {
       chartType={"pie"}
       series={series}
       includeDataLabels
-      showLegend={false}
+      showLegend={true}
       toolTipValueSuffix=""
     />
   );

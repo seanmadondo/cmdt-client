@@ -40,8 +40,8 @@ export const TotalPublicationsPieChart = ({
       chartType={"pie"}
       series={series}
       includeDataLabels
-      showLegend={false}
-      toolTipValueSuffix="Thousand"
+      showLegend={true}
+      toolTipValueSuffix="Publications"
     />
   );
 };

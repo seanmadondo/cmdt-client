@@ -1,6 +1,12 @@
 import React from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import highcharts from "highcharts/modules/exporting";
+
+//load HC exporting module
+if (typeof Highcharts === "object") {
+  highcharts(Highcharts);
+}
 
 interface ChartProps {
   chartType: string;
@@ -43,6 +49,29 @@ export const Chart = ({
     tooltip: {
       valueSuffix: " " + toolTipValueSuffix,
     },
+    legend: {
+      layout: "vertical",
+      align: "right",
+      verticalAlign: "middle",
+      y: 20, // padding top
+      itemStyle: {
+        fontWeight: "normal",
+      },
+    },
+    exporting: {
+      enabled: true,
+      buttons: {
+        contextButton: {
+          menuItems: [
+            "viewFullscreen",
+            "printChart",
+            "downloadPNG",
+            "downloadJPEG",
+            "downloadSVG",
+          ],
+        },
+      },
+    },
     scrollbars: {
       enabled: true,
     },
@@ -50,6 +79,9 @@ export const Chart = ({
       categories: xAxisCategories,
       title: {
         text: xAxisTitle,
+        style: {
+          fontWeight: "bold",
+        },
       },
       scalable: true,
     },
@@ -57,6 +89,9 @@ export const Chart = ({
       min: 0,
       title: {
         text: yAxisTitle,
+        style: {
+          fontWeight: "bold",
+        },
       },
     },
     plotOptions: {

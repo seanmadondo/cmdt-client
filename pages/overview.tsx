@@ -58,6 +58,7 @@ const Overview: NextPage = ({ overviewData, categoryData }: any) => {
       <PageToolbar>
         <Typography>Total Publications</Typography>
       </PageToolbar>
+      {/* First Overview Section ------------- */}
       <Box
         css={{ display: "flex", flexDirection: "row", alignItems: "center" }}
       >
@@ -72,20 +73,27 @@ const Overview: NextPage = ({ overviewData, categoryData }: any) => {
           css={{
             alignContent: "center",
             borderRadius: 10,
-            width: "30%",
+            width: "60%",
             marginLeft: "5%",
           }}
         >
           <TotalPublicationsPieChart data={{ data: overviewData }} />
         </Paper>
-        <Divider orientation="vertical" />
-        <Paper
-          elevation={0}
-          css={{ borderRadius: 10, width: "50%", marginLeft: "5%" }}
-        >
-          <TotalPublicationsBarChart data={{ data: overviewData }} />
-        </Paper>
       </Box>
+      {/* Second Overview Section ------------- */}
+      <div css={{ marginTop: "20px" }}>
+        <Box
+          css={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+        >
+          <Paper
+            elevation={0}
+            css={{ alignContent: "center", borderRadius: 10, width: "100%" }}
+          >
+            <TotalPublicationsBarChart data={{ data: overviewData }} />
+          </Paper>
+        </Box>
+      </div>
+      {/* Category Section ------------- */}
       <div css={{ marginTop: 10 }}>
         <PageToolbar>
           <Typography>By Category</Typography>

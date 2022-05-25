@@ -3,13 +3,10 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
 import HighchartsTreeChart from "highcharts/modules/treemap";
+import { useGrantsContext } from "../../contexts/GrantsProvider";
 
 if (typeof Highcharts === "object") {
   HighchartsTreeChart(Highcharts);
-}
-
-interface GrantsTreeMapProps {
-  data: any;
 }
 
 interface ChartDataProps {
@@ -19,7 +16,10 @@ interface ChartDataProps {
   percentage: number;
 }
 
-export const GrantsTreemap = ({ data }: GrantsTreeMapProps) => {
+export const GrantsTreemap = () => {
+  //Get data from Grants context
+  let data: any = useGrantsContext();
+
   //process received data
   const chartData: ChartDataProps[] = Object.values(
     data.data
@@ -36,13 +36,7 @@ export const GrantsTreemap = ({ data }: GrantsTreeMapProps) => {
     return seriesData;
   }
 
-  console.log(createTreeMapData());
-
   const options = {
-    colorAxis: {
-      minColor: "#FFFFFF",
-      maxColor: "",
-    },
     series: [
       {
         type: "treemap",
@@ -58,6 +52,7 @@ export const GrantsTreemap = ({ data }: GrantsTreeMapProps) => {
             level: 1,
             dataLabels: {
               enabled: true,
+              align: "left",
             },
             borderWidth: 3,
           },
@@ -66,7 +61,7 @@ export const GrantsTreemap = ({ data }: GrantsTreeMapProps) => {
       },
     ],
     title: {
-      text: "Top Funding Agencies (In Development)",
+      text: "Top 10 Funding Agencies",
     },
     credits: false,
   };

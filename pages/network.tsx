@@ -86,7 +86,6 @@ const Network: NextPage = ({ networkData, categoryData }: any) => {
           <MultiSelectDropdown
             options={sourceData}
             label="Source"
-            defaultValue="ALL"
             ctx="Network"
           />
         </div>

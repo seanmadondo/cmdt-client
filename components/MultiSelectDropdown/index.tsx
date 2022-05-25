@@ -11,12 +11,13 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useGrantsContext } from "../../contexts/GrantsProvider";
 import { useNetworkContext } from "../../contexts/NetworkProvider";
 
 interface MultiSelectDropdownProps {
   label?: string;
   options: string[];
-  defaultValue: string;
+  defaultValue?: string;
   ctx?: "Fingerprint" | "Overview" | "Network" | "Grants";
 }
 
@@ -37,10 +38,13 @@ export const MultiSelectDropdown = ({
   defaultValue,
   ctx,
 }: MultiSelectDropdownProps) => {
-  const [selected, setSelected] = useState<string[]>([...options]);
+  const initialValueList: string[] =
+    defaultValue && defaultValue !== null ? [defaultValue] : [...options];
+  const [selected, setSelected] = useState<string[]>(initialValueList);
   const isAllSelected =
     options.length > 0 && selected.length === options.length;
   let networkContext: any = useNetworkContext();
+  let grantsContext: any = useGrantsContext();
 
   const handleChange = (event: SelectChangeEvent<typeof selected>) => {
     const value = event.target.value;
@@ -55,6 +59,14 @@ export const MultiSelectDropdown = ({
         networkContext.updateQuery([], label);
       } else {
         networkContext.updateQuery(value, label);
+      }
+    }
+    if (ctx === "Grants") {
+      //Don't respond for ALL - Payload is too large
+      if (value.includes("ALL") || value.length === 0) {
+        return;
+      } else {
+        grantsContext.updateQuery(value, label);
       }
     }
   };
@@ -76,7 +88,7 @@ export const MultiSelectDropdown = ({
           onChange={handleChange}
           MenuProps={MenuProps}
         >
-          <MenuItem value="ALL">
+          <MenuItem value="ALL" disabled={ctx === "Grants"}>
             <ListItemIcon>
               <Checkbox
                 checked={isAllSelected}

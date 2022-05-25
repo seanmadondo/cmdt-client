@@ -5,6 +5,8 @@ import { GrantsTreemap } from "../data-components/grants/GrantsTreemap";
 import { PageToolbar } from "../components/PageToolbar";
 import { MAIN_SOURCE_ABBR } from "../utils/constants";
 import GrantsTable from "../data-components/grants/GrantsTable";
+import { MultiSelectDropdown } from "../components/MultiSelectDropdown";
+import { GrantsProvider } from "../contexts/GrantsProvider";
 
 export async function getServerSideProps() {
   const response = await fetch(
@@ -28,24 +30,32 @@ export async function getServerSideProps() {
 
 const Grants: NextPage = (data) => {
   return (
-    <div>
+    <GrantsProvider value={data}>
       <PageToolbar>
         <Typography>Funding Organisations</Typography>
+        <div css={{ marginLeft: "3%" }}>
+          <MultiSelectDropdown
+            options={MAIN_SOURCE_ABBR}
+            label="Source"
+            defaultValue="ABI"
+            ctx="Grants"
+          />
+        </div>
       </PageToolbar>
       <Box
         css={{ display: "flex", flexDirection: "row", alignItems: "center" }}
       >
         <Paper elevation={0} css={{ borderRadius: 10, width: "40%" }}>
-          <GrantsTable data={data} />
+          <GrantsTable />
         </Paper>
         <Paper
           elevation={0}
           css={{ borderRadius: 10, width: "50%", marginLeft: "5%" }}
         >
-          <GrantsTreemap data={data} />
+          <GrantsTreemap />
         </Paper>
       </Box>
-    </div>
+    </GrantsProvider>
   );
 };
 

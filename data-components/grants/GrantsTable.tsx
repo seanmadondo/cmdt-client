@@ -9,10 +9,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-
-interface GrantsTableProps {
-  data: any;
-}
+import { useGrantsContext } from "../../contexts/GrantsProvider";
 
 interface RowDataProps {
   source: string;
@@ -21,7 +18,10 @@ interface RowDataProps {
   percentage: number;
 }
 
-export default function GrantsTable({ data }: GrantsTableProps) {
+export default function GrantsTable() {
+  //Get data from Grants context
+  let data: any = useGrantsContext();
+
   //Process & populate table data
   const rowData: RowDataProps[] = Object.values(data.data)[0] as RowDataProps[];
 

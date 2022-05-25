@@ -1,47 +1,15 @@
 import { createContext, useContext, useState } from "react";
+import { MAIN_SOURCE_ABBR, NZ_ORGS } from "../utils/constants";
 
 //create context object
 const NetworkContext = createContext(undefined);
 
-const sourceData = [
-  "ABI",
-  "AUT",
-  "CDHB",
-  "CI",
-  "LU",
-  "MU",
-  "UoA",
-  "UoC",
-  "UoO",
-  "UoW",
-  "VUW",
-];
-
-const targetData = [
-  "Auckland University of Technology",
-  "University of Auckland",
-  "University of Canterbury",
-  // "Institute of Environmental Science & Research (ESR) - New Zealand",
-  "Unitec NZ",
-  "University of Waikato",
-  // "AgResearch - New Zealand",
-  // "Auckland City Hospital",
-  // "Auckland District Health Board",
-  "University of Otago",
-  "Massey University",
-  // "Christchurch Hospital New Zealand",
-  "Victoria University of Wellington",
-  "Callaghan Innovation",
-  "Lincoln University",
-  "Auckland Bioengineering Institute",
-  // "Canterbury District Health Board",
-];
-
 //Provider State
 export function NetworkProvider(props: any) {
   const [value, setValue] = useState(props.value);
-  const [currentSourceValue, setCurrentSourceValue] = useState(sourceData);
-  const [currentAreaValue, setcurrentAreaValue] = useState(targetData);
+  const [currentSourceValue, setCurrentSourceValue] =
+    useState(MAIN_SOURCE_ABBR);
+  const [currentAreaValue, setcurrentAreaValue] = useState(NZ_ORGS);
   const [currentCategoryValue, setCurrentCategoryValue] = useState(
     "Engineering, Biomedical"
   );
@@ -51,19 +19,18 @@ export function NetworkProvider(props: any) {
   //update querydata when dropdowns change
   const updateQuery = async (option: string[], requestType: string) => {
     //check which parameters we are using for body
-    // requestType === "Area" && setcurrentAreaValue(option);
     if (requestType === "Area") {
       if (option.includes("NZ Universities")) {
-        option = targetData;
+        option = NZ_ORGS;
         setcurrentAreaValue(option);
       } else {
-        option = ["ALL"];
+        option = [];
         setcurrentAreaValue(option);
       }
     }
     if (requestType === "Source") {
       if (option.length === 0) {
-        option = sourceData;
+        option = MAIN_SOURCE_ABBR;
         setCurrentSourceValue(option);
       } else {
         setCurrentSourceValue(option);
@@ -99,6 +66,7 @@ export function NetworkProvider(props: any) {
         sources: [
           requestType === "Source" ? option : currentCategorySourceValue,
         ],
+        targets: MAIN_SOURCE_ABBR,
         categories: [
           requestType === "Category" ? option : currentCategoryValue,
         ],

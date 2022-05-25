@@ -37,7 +37,7 @@ export async function getServerSideProps() {
       },
       body: JSON.stringify({
         sources: ["ABI"],
-        targets: ["ALL"],
+        targets: MAIN_SOURCE_ABBR,
         categories: ["Engineering, Biomedical"],
       }),
     }).then((r) => r.json()),
@@ -63,20 +63,6 @@ const Network: NextPage = ({ networkData, categoryData }: any) => {
     getOverviewCategoryList();
   }, []);
 
-  const sourceData = [
-    "ABI",
-    "AUT",
-    "CDHB",
-    "CI",
-    "LU",
-    "MU",
-    "UoA",
-    "UoC",
-    "UoO",
-    "UoW",
-    "VUW",
-  ];
-
   const areas = ["NZ Universities"]; // TODO: Re-add worldwide option later.
   return (
     <NetworkProvider value={{ networkData, categoryData }}>
@@ -84,7 +70,7 @@ const Network: NextPage = ({ networkData, categoryData }: any) => {
         <Typography>Network of Organisations</Typography>
         <div css={{ marginLeft: "3%" }}>
           <MultiSelectDropdown
-            options={sourceData}
+            options={MAIN_SOURCE_ABBR}
             label="Source"
             ctx="Network"
           />
@@ -145,7 +131,7 @@ const Network: NextPage = ({ networkData, categoryData }: any) => {
           </div>
           <div css={{ marginLeft: "3%" }}>
             <Dropdown
-              options={sourceData}
+              options={MAIN_SOURCE_ABBR}
               label="Source"
               defaultValue="ABI"
               ctx="NetworkCategory"

@@ -13,7 +13,7 @@ const Home: NextPage = () => {
         }}
       >
         <Typography color="#41255D" variant="h5">
-          Welcome to the Data Visualtion Platform
+          Welcome to the Data Visualisation Platform
         </Typography>
 
         <Typography variant="body2">

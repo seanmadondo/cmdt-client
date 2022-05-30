@@ -104,7 +104,6 @@ const Network: NextPage = ({ networkData, categoryData }: any) => {
         <Box
           css={{
             display: "flex",
-            // flexDirection: "row",
             alignItems: "center",
             paddingTop: "35px",
             jsutifyContent: "center",

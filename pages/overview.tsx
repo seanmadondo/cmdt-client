@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Divider, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import type { NextPage } from "next";
 import { TotalPublicationsBarChart } from "../data-components/overview/charts/TotalPublicationsBar";
 import { PageToolbar } from "../components/PageToolbar";

@@ -6,6 +6,7 @@ import ResearchAreasTable from "../data-components/fingerprint/ResearchAreasTabl
 import { ResearchAreasBarChart } from "../data-components/fingerprint/ResearchAreasBar";
 import { Dropdown } from "../components/Dropdown";
 import { FingerprintProvider } from "../contexts/FingerprintProvider";
+import { MAIN_SOURCE_ABBR } from "../utils/constants";
 
 export async function getServerSideProps() {
   const response = await fetch(
@@ -28,34 +29,7 @@ export async function getServerSideProps() {
 }
 
 const Fingerprint: NextPage = (data) => {
-  const sourceData = [
-    "ABI",
-    "AUT",
-    "CDHB",
-    "CI",
-    "LU",
-    "MU",
-    "UoA",
-    "UoC",
-    "UoO",
-    "UoW",
-    "VUW",
-  ];
-
-  const targetData = [
-    "ALL",
-    "ABI",
-    "AUT",
-    "CDHB",
-    "CI",
-    "LU",
-    "MU",
-    "UoA",
-    "UoC",
-    "UoO",
-    "UoW",
-    "VUW",
-  ];
+  const targetData = ["ALL", ...MAIN_SOURCE_ABBR];
 
   return (
     <FingerprintProvider value={data}>
@@ -63,7 +37,7 @@ const Fingerprint: NextPage = (data) => {
         <Typography>Research Areas</Typography>
         <div css={{ marginLeft: "3%" }}>
           <Dropdown
-            options={sourceData}
+            options={MAIN_SOURCE_ABBR}
             label="Source"
             defaultValue="ABI"
             ctx="Fingerprint"

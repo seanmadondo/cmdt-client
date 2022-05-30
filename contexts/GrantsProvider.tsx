@@ -3,20 +3,6 @@ import { createContext, useContext, useState } from "react";
 //create context object
 const GrantsContext = createContext(undefined);
 
-const sourceData = [
-  "ABI",
-  "AUT",
-  "CDHB",
-  "CI",
-  "LU",
-  "MU",
-  "UoA",
-  "UoC",
-  "UoO",
-  "UoW",
-  "VUW",
-];
-
 //Provider State
 export function GrantsProvider(props: any) {
   const [value, setValue] = useState(props.value);
